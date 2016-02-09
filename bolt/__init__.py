@@ -5,6 +5,8 @@ import os
 import sys
 print os.getcwd()
 
+from _bterror import InvalidTask
+
 
 def run():
     """
