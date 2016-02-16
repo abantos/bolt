@@ -40,4 +40,3 @@ class TaskRegistry(object):
         return callable(task) or is_list
 
 
-instance = TaskRegistry()

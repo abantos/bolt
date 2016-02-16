@@ -6,7 +6,7 @@ import bolt._btregistry as registry
 class TestTaskRegistry(unittest.TestCase):
 
     def setUp(self):
-        self.subject = registry.instance
+        self.subject = registry.TaskRegistry()
 
     def test_can_register_callable_as_task(self):
         task_name = 'test'
