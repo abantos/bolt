@@ -1,9 +1,10 @@
 """
 This is the main module that exposes the required functions to use bolt in your applications.
 """
+import argparse
 import os
 import sys
-print os.getcwd()
+
 
 from _bterror import InvalidTask
 
@@ -17,3 +18,10 @@ def run():
     params = " ".join(sys.argv[1:])
     print "Running with: " + params
     return 0
+
+
+def _get_argument_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('task', nargs='?', default='default')
+    parser.add_argument('--bolt-file', default='boltfile.py')
+    return parser
