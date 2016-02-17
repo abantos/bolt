@@ -34,6 +34,8 @@ var/
 #
 # PyCharm
 .idea/
+# Visual Studio
+.vs/
 
 # Installer logs
 pip-log.txt
