@@ -7,6 +7,20 @@ import sys
 
 
 from _bterror import InvalidTask
+from _btregistry import TaskRegistry
+
+_registry = TaskRegistry()
+
+def register_module_tasks(module):
+    """
+    """
+    module.register_tasks(_registry)
+
+
+def register_task(name, task):
+    """
+    """
+    _registry.register_task(name, task)
 
 
 def run():

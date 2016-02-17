@@ -2,6 +2,31 @@ import unittest
 
 import bolt
 
+class TestRegisterModuleTasks(unittest.TestCase):
+
+    def test_module_is_invoked_to_register_tasks(self):
+        module = self
+        self.given(module)
+        self.expect('test')
+        
+
+    def given(self, module):
+        bolt.register_module_tasks(module)
+
+
+    def expect(self, task_name):
+        task = bolt._registry.get(task_name)
+        self.assertTrue(callable(task))
+
+
+    def register_tasks(self, registry):
+        registry.register_task('test', self.the_task)
+
+
+    def the_task(self, config): pass
+
+
+
 class TestGetArgumentParser(unittest.TestCase):
 
     def test_returns_specified_task(self):
@@ -35,6 +60,8 @@ class TestGetArgumentParser(unittest.TestCase):
 
     def expect_bolt_file(self, filename):
         self.assertEqual(filename, self.args.bolt_file)
+
+
 
 if __name__=="__main__":
     unittest.main()
