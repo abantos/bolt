@@ -9,21 +9,25 @@ class ConfigurationManager(object):
 
 
     def get(self, task_key):
-        self._task_tokens = task_key.split('.')
-        self._last_token_index = len(self._task_tokens) - 1
-        config = self._get_at(self._full_config, 0)
-        return config
-
-    def _get_at(self, config, index):
-        id = self._task_tokens[index]
-        result_config = {}
-        current_config = config.get(id)
-        if current_config:
-            result_config.update(current_config)
-            if index < self._last_token_index:
-                child_index = index + 1
-                child_config = self._get_at(current_config, child_index)
-                result_config.update(child_config)
-                child_id = self._task_tokens[child_index]
-                del result_config[child_id]
-        return result_config
+        self.result_config = {}
+        self.current_config = self._full_config.copy()
+        [self._add_task_options(task_option) for task_option in  task_key.split('.')]
+        return self.result_config
+        
+        
+    def _add_task_options(self, task_option):
+        task_config = self.current_config.get(task_option)
+        if task_config:
+            self._merge_into_result(task_config)
+            self._remove_from_result(task_option)
+        self.current_config = task_config
+        
+        
+    def _merge_into_result(self, task_config):
+        self.result_config.update(task_config)
+        
+        
+    def _remove_from_result(self, task_option):
+        if self.result_config.has_key(task_option):
+            del self.result_config[task_option]
+        
