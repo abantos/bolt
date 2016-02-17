@@ -25,6 +25,9 @@
     <Compile Include="_btconfig.py" />
     <Compile Include="_bterror.py" />
     <Compile Include="_btregistry.py" />
+    <Compile Include="_btutils.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="__init__.py" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
