@@ -15,9 +15,22 @@ def run():
 
     :return: 0 if the application succeeds or a non-zero value otherwise.
     """
-    params = " ".join(sys.argv[1:])
-    print "Running with: " + params
+    try:
+        _run_bolt()
+    except Exception as e:
+        print e
+        return 1
     return 0
+
+
+def _run_bolt():
+    args = _get_arguments()
+    print args
+
+
+def _get_arguments():
+    parser = _get_argument_parser()
+    return parser.parse_args()
 
 
 def _get_argument_parser():
