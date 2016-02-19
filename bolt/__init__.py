@@ -9,6 +9,8 @@ import sys
 from _bterror import InvalidTask
 from _btregistry import TaskRegistry
 from _btutils import load_script
+from _btconfig import ConfigurationManager
+from _btrunner import TaskRunner
 
 _registry = TaskRegistry()
 
@@ -42,6 +44,10 @@ def _run_bolt():
     args = _get_arguments()
     print 'Running <{task}> task in {bolt_file}....'.format(task=args.task, bolt_file=args.bolt_file)
     boltmodule = _load_bolt_file(args.bolt_file)
+    config_mgr = ConfigurationManager(boltmodule.config)
+    runner = TaskRunner(config_mgr, _registry)
+    runner.build(args.task)
+    runner.run()
     
 
 
