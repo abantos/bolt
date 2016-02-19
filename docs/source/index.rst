@@ -1,16 +1,16 @@
-.. bolt documentation master file, created by
-   sphinx-quickstart on Mon Feb 08 19:29:04 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
+################################################################################
 Welcome to bolt's documentation!
-================================
+################################################################################
 
-Contents:
+Bolt is a |python|_ task runner inspired by |grunt|_ in the JavaScript world.
+Bolt tries to simplify the automation of tasks
+
+Review the following topics:
 
 ..  toctree::
     :maxdepth: 2
 
-    Bolt Library Documentation <bolt/package>
+    User's Guide <ug/users_guide>
+    Developer's Guide <dg/developers_guide>
+    Reference Guide <rg/reference_guide>
     Documentation Improvements <todo_list>
-
