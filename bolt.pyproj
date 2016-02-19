@@ -25,6 +25,9 @@
     <Compile Include="_btconfig.py" />
     <Compile Include="_bterror.py" />
     <Compile Include="_btregistry.py" />
+    <Compile Include="_btrunner.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_btutils.py">
       <SubType>Code</SubType>
     </Compile>

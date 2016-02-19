@@ -24,6 +24,9 @@
     <Compile Include="test_bolt.py" />
     <Compile Include="test_btconfig.py" />
     <Compile Include="test_btregistry.py" />
+    <Compile Include="test_btrunner.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
