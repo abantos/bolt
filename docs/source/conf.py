@@ -309,4 +309,5 @@ rst_epilog="""
 ..  _python: http://www.python.org
 ..  |grunt| replace:: Grunt
 ..  _grunt: http://gruntjs.com/
+.. |ug| replace:: :doc:`User Guide <ug/users_guide>`
 """
