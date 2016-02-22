@@ -30,6 +30,13 @@ var/
 *.manifest
 *.spec
 
+# Editors and IDEs
+#
+# PyCharm
+.idea/
+# Visual Studio
+.vs/
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt

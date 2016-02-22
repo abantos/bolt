@@ -1,0 +1,6 @@
+# Dev Requirements
+nose==1.3.7
+conttest==0.0.8
+
+# Build Requirements
+sphinx==1.3.5
