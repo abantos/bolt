@@ -20,19 +20,27 @@ Please, don't hate me for it.
 How Can I Get Started Using Bolt?
 =================================
 
-Refer to the :doc:`User's Guide <ug/users_guide>
+The best way to get started using Bolt is to go over the :doc:`User's Guide <ug/users_guide>`,
+which provides information about installing bolt, creating a bolt configuration
+file, and out-of-the-box provided tasks.
 
 
 How Can I Extend Bolt With My Own Tasks?
 ========================================
 
-Refer to the :doc:`Reference Guide <rg/reference_guide>`
+Now that you are a Bolt power-user, and you are leveraging Bolt's out-of-the-box
+functionality, plus some 3rd-party extensions, you are ready to create your own
+tasks. The :doc:`Reference Guide <rg/reference_guide>` gives a good explanation 
+on how to provide additional tasks for Bolt and documents the Bolt API.
 
 
 How Can I Contribute to Bolt?
 =============================
 
-Refer to the :doc:`Developer's Guide <ds/developers_guide>`
+You've mastered Bolt's capabilities and want to give back to the community. That's 
+great! Check out the :doc:`Developer's Guide <dg/developers_guide>` for instructions
+on how to contribute to the project, and visit our |repo|_ to fork or clone the
+project.
 
 
 Table of Contents
