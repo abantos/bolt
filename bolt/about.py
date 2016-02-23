@@ -2,7 +2,7 @@
 
 """
 project = u'bolt'
-copyright = u'2016 Isaac Rodriguez'
+copyright = u'2016 Abantos'
 author = u'Isaac Rodriguez'
 version = u'0.1'
-release = u'0.0.1'
+release = u'0.1.2'
