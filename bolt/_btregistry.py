@@ -1,7 +1,7 @@
 """
 
 """
-from _bterror import InvalidTask
+from _bterror import InvalidTaskError
 
 class TaskRegistry(object):
     """
@@ -18,7 +18,7 @@ class TaskRegistry(object):
         :return:
         """
         if not self._is_valid_task(task):
-            raise InvalidTask()
+            raise InvalidTaskError()
         self._tasks[name] = task
 
 

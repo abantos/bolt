@@ -8,7 +8,7 @@ import sys
 
 import tasks
 from _btconfig import ConfigurationManager
-from _bterror import InvalidTask
+from _bterror import *
 from _btregistry import TaskRegistry
 from _btrunner import TaskRunner
 from _btutils import load_script

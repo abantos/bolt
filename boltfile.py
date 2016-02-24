@@ -2,7 +2,14 @@ import logging
 
 import bolt
 
-config = {}
+config = {
+    'delete-files': {
+        'sourcedir': './',
+        'pattern': '*.pyc',
+        'recursive': True
+    }
+}
+
 
 def hello_tasks(config):
     print 'Hello Bolt!!!'

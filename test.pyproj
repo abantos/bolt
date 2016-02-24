@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{b069c73a-2b6d-4806-ac56-9e12840c95c6}</ProjectGuid>
     <ProjectHome>test\</ProjectHome>
-    <StartupFile>test_bolt.py</StartupFile>
+    <StartupFile>test_tasks\test_delete_files.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -27,6 +27,16 @@
     <Compile Include="test_btrunner.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="test_tasks\test_delete_files.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_utils\test_utfiles.py">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="test_utils\" />
+    <Folder Include="test_tasks\" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
