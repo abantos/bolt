@@ -32,7 +32,17 @@ class DeleteFilesTask(object):
 
 
 
+class DeletePycTask(DeleteFilesTask):
+
+    def __call__(self, **kwargs):
+        config = kwargs.get('config')
+        config['pattern'] = '*.pyc'
+        return super(DeletePycTask, self).__call__(**kwargs)
+
+
+
 
 def register_tasks(registry):
     registry.register_task('delete-files', DeleteFilesTask())
+    registry.register_task('delete-pyc', DeletePycTask())
 

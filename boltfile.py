@@ -3,9 +3,8 @@ import logging
 import bolt
 
 config = {
-    'delete-files': {
+    'delete-pyc': {
         'sourcedir': './',
-        'pattern': '*.pyc',
         'recursive': True
     }
 }
