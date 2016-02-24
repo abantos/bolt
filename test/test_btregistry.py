@@ -26,12 +26,12 @@ class TestTaskRegistry(unittest.TestCase):
 
 
     def test_fails_if_task_is_not_callable_or_list(self):
-        with self.assertRaises(bolt.InvalidTask):
+        with self.assertRaises(bolt.InvalidTaskError):
             self.subject.register_task("invalid", 1)
 
 
     def test_raises_if_list_contains_anything_other_than_strings(self):
-        with self.assertRaises(bolt.InvalidTask):
+        with self.assertRaises(bolt.InvalidTaskError):
             self.subject.register_task("invalid", ['foo', 'bar', 3])
 
 
