@@ -22,6 +22,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="about.py" />
+    <Compile Include="tasks\bolt_pip.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tasks\delete_files.py">
       <SubType>Code</SubType>
     </Compile>
