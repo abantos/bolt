@@ -6,12 +6,12 @@ import logging
 import os
 import sys
 
-import tasks
-from _btconfig import ConfigurationManager
-from _bterror import *
-from _btregistry import TaskRegistry
-from _btrunner import TaskRunner
-from _btutils import load_script
+import bolt.tasks as tasks
+from bolt._btconfig import ConfigurationManager
+from bolt._bterror import *
+from bolt._btregistry import TaskRegistry
+from bolt._btrunner import TaskRunner
+from bolt._btutils import load_script
 
 
 class _BoltApplication(object):
