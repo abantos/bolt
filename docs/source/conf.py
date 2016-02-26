@@ -14,7 +14,7 @@
 
 import sys
 import os
-import bolt.about
+
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -23,6 +23,8 @@ import bolt.about
 
 source_dir = os.path.join(os.path.dirname(__file__), '..', '..')
 sys.path.insert(0, os.path.abspath(source_dir))
+
+import bolt.about
 
 # -- General configuration ------------------------------------------------
 
