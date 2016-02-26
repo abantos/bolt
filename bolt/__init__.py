@@ -6,12 +6,20 @@ import logging
 import os
 import sys
 
-import tasks
-from _btconfig import ConfigurationManager
-from _bterror import *
-from _btregistry import TaskRegistry
-from _btrunner import TaskRunner
-from _btutils import load_script
+import bolt.tasks
+from bolt._btconfig import ConfigurationManager
+from bolt._bterror import *
+from bolt._btregistry import TaskRegistry
+from bolt._btrunner import TaskRunner
+from bolt._btutils import load_script
+
+# Standard task modules.
+import bolt.tasks.bolt_pip as bolt_pip
+import bolt.tasks.delete_files as delete_files
+
+def _register_standard_modules(registry):
+    bolt_pip.register_tasks(registry)
+    delete_files.register_tasks(registry)
 
 
 class _BoltApplication(object):
@@ -47,7 +55,7 @@ class _BoltApplication(object):
 
     def _register_standard_modules(self):
         logging.debug('Registering standard task modules')
-        tasks.register_standard_modules(self.registry)
+        _register_standard_modules(self.registry)
 
 
     def _initialize_execution_options(self):
