@@ -21,7 +21,7 @@ import bolt.about
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
-source_dir = os.path.join(os.path.dirname(__file__), '..')
+source_dir = os.path.join(os.path.dirname(__file__), '..', '..')
 sys.path.insert(0, os.path.abspath(source_dir))
 
 # -- General configuration ------------------------------------------------
