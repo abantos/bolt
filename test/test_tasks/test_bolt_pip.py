@@ -74,7 +74,9 @@ class TestPipArgumentGenerator(unittest.TestCase):
 
 
     def expect(self, expected):
-        self.assertListEqual(self.generated_args, expected)
+        commonitems = set(self.generated_args).intersection(expected)
+
+        self.assertEqual(len(commonitems), len(expected))
 
 
 

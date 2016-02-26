@@ -1,7 +1,7 @@
 """
 
 """
-from _bterror import InvalidTaskError
+from bolt._bterror import InvalidTaskError
 
 class TaskRegistry(object):
     """
@@ -35,7 +35,7 @@ class TaskRegistry(object):
         is_list = isinstance(task, list)
         if is_list:
             for t in task:
-                if not isinstance(t, basestring):
+                if not isinstance(t, str):
                     return False
         return callable(task) or is_list
 

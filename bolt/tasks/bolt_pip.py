@@ -32,7 +32,7 @@ class _PipArgumentGenerator(object):
     def _converted_options(self):
         self.args = [self.command]
         self.options = self.config.get('options')
-        {self._push_as_arguments(option, value) for option, value in self.options.iteritems()}       
+        {self._push_as_arguments(option, value) for option, value in self.options.items()}       
         return self.args
 
     def _push_as_arguments(self, option, value):

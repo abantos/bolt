@@ -37,6 +37,9 @@ var/
 # Visual Studio
 .vs/
 
+# Local virtual environments
+.virtualenv/
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
