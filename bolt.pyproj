@@ -11,8 +11,10 @@
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <InterpreterId />
-    <InterpreterVersion />
+    <InterpreterId>
+    </InterpreterId>
+    <InterpreterVersion>
+    </InterpreterVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -22,6 +24,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="about.py" />
+    <Compile Include="tasks\bolt_pip.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tasks\delete_files.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tasks\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="utils\_utfiles.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="utils\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_btconfig.py" />
     <Compile Include="_bterror.py" />
     <Compile Include="_btregistry.py" />
@@ -32,6 +49,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="utils\" />
+    <Folder Include="tasks\" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />

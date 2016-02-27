@@ -1,10 +1,17 @@
 sudo: required
 language: python
 python:
-- "2.7.10"
+- "2.7"
+- "3.5"
+
+branches:
+    only:
+    - master
+    - develop
 
 install:
 - pip install -r requirements.txt
 
 script:
 - nosetests ./test
+- make -C docs html

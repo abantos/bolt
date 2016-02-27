@@ -15,7 +15,7 @@ class TestRegisterModuleTasks(unittest.TestCase):
 
 
     def expect(self, task_name):
-        task = bolt._registry.get(task_name)
+        task = bolt._bolt_application.registry.get(task_name)
         self.assertTrue(callable(task))
 
 
@@ -50,7 +50,7 @@ class TestGetArgumentParser(unittest.TestCase):
 
 
     def given(self, args=''):
-        parser = bolt._get_argument_parser()
+        parser = bolt._bolt_application._get_argument_parser()
         self.args = parser.parse_args(args.split())
 
 

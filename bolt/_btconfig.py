@@ -28,6 +28,6 @@ class ConfigurationManager(object):
         
         
     def _remove_from_result(self, task_option):
-        if self.result_config.has_key(task_option):
+        if task_option in self.result_config:
             del self.result_config[task_option]
         
