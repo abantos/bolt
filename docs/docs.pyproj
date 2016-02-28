@@ -37,6 +37,7 @@
     <Content Include="source\index.rst" />
     <Content Include="source\rg\reference_guide.rst" />
     <Content Include="source\todo_list.rst" />
+    <Content Include="source\ug\getting_started.rst" />
     <Content Include="source\ug\users_guide.rst" />
     <Content Include="source\_static\dummy.txt" />
   </ItemGroup>

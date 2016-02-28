@@ -49,7 +49,7 @@ Table of Contents
 ..  toctree::
     :maxdepth: 2
 
-    User's Guide <ug/users_guide>
-    Developer's Guide <dg/developers_guide>
-    Reference Guide <rg/reference_guide>
-    Documentation Improvements <todo_list>
+    ug/users_guide
+    dg/developers_guide
+    rg/reference_guide
+    todo_list
