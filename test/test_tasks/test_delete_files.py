@@ -1,7 +1,7 @@
 import unittest
 
 import bolt
-import bolt.tasks.delete_files as df
+import bolt.tasks.bolt_delete_files as df
 
 
 class TestDeleteFilesTask(unittest.TestCase):

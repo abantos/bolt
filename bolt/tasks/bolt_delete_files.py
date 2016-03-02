@@ -4,7 +4,7 @@ import glob
 import os
 
 import bolt
-import bolt.utils as ut
+import bolt.utils as utilities
 
 class DeleteFilesTask(object):
 
@@ -26,9 +26,9 @@ class DeleteFilesTask(object):
 
 
     def _execute_delete(self):
-        finder = ut.FileFinder(self.sourcedir, self.pattern, self.recursive)
+        finder = utilities.FileFinder(self.sourcedir, self.pattern, self.recursive)
         matches = finder.find()
-        ut.delete_files_in(matches)
+        utilities.delete_files_in(matches)
 
 
 

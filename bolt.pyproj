@@ -27,10 +27,16 @@
     <Compile Include="tasks\bolt_pip.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tasks\delete_files.py">
+    <Compile Include="tasks\bolt_delete_files.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tasks\bolt_setup.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tasks\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="utils\_utconfig.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="utils\_utfiles.py">
