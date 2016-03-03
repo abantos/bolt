@@ -1,12 +1,11 @@
 from setuptools import setup
+import bolt.about
 
-name = 'bolt'
-version = '0.0.1'
-description = 	"""
-This is a temporary description.
-"""
-author = 'Isaac Rodriguez'
-author_email = 'isaac_rodriguez@live.com'
+name = bolt.about.project
+version = bolt.about.release
+description = 	bolt.about.description
+author = bolt.about.author
+
 packages = ['bolt']
 entry_points = {
     'console_scripts': [
@@ -18,6 +17,5 @@ setup(name=name,
       version=version,
       description=description,
       author=author,
-      author_email=author_email,
       packages=packages,
       entry_points=entry_points)

@@ -15,11 +15,13 @@ from bolt._btutils import load_script
 
 # Standard task modules.
 import bolt.tasks.bolt_pip as bolt_pip
-import bolt.tasks.delete_files as delete_files
+import bolt.tasks.bolt_delete_files as bolt_delete_files
+import bolt.tasks.bolt_setup as bolt_setup
 
 def _register_standard_modules(registry):
+    bolt_delete_files.register_tasks(registry)
     bolt_pip.register_tasks(registry)
-    delete_files.register_tasks(registry)
+    bolt_setup.register_tasks(registry)
 
 
 class _BoltApplication(object):
