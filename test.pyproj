@@ -32,7 +32,13 @@
     <Compile Include="test_tasks\test_bolt_pip.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="test_tasks\test_bolt_setup.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="test_tasks\test_delete_files.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_utils\test_utconfig.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="test_utils\test_utfiles.py">

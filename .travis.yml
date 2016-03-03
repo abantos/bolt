@@ -15,3 +15,6 @@ install:
 script:
 - nosetests ./test
 - make -C docs html
+
+notifications:
+  slack: bolt-ta:EVxZet7QX82F4aEh21tvrtFc

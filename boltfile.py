@@ -3,7 +3,10 @@ import logging
 import bolt
 
 config = {
-    
+    'setup': {
+		'command': 'build',
+		'options': {}
+    }
 }
 
 
