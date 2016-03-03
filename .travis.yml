@@ -17,4 +17,4 @@ script:
 - make -C docs html
 
 notifications:
-  slack: abantos:EVxZet7QX82F4aEh21tvrtFc
+  slack: bolt-ta:EVxZet7QX82F4aEh21tvrtFc
