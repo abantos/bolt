@@ -3,11 +3,11 @@ import logging
 import bolt
 
 config = {
-    'setup': {
-		'command': 'build',
-		'options': {}
+    'shell': {
+		'command': 'conttest',
+		'arguments': ['nosetests', './test/']
     }
 }
 
 
-bolt.register_task('default', ['pip'])
+bolt.register_task('default', ['shell'])
