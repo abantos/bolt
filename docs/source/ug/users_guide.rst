@@ -16,3 +16,4 @@ section is a good start; then, you can dive into more advance topics.
     :maxdepth: 2
 
     getting_started
+    provided_tasks

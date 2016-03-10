@@ -1,4 +1,41 @@
 """
+pip
+---
+
+The ``pip`` task provides an automation hook to execute ``pip`` inside of
+Bolt. In its simplest form, the task does not require any configuration,
+and it just assumes a ``requirements.txt`` file is provided at the 
+current working directory, which will be used to execute a ``pip install``.
+
+The task also provides a simple form where a ``command`` and ``package``
+are specified to allow install a single package. ::
+
+    config = {
+        'pip': {
+            'command': 'install',
+            'package': 'package_name'
+        }
+    }
+
+The supported ``pip`` functionality can be configured by setting the
+``command`` option to a valid ``pip`` command, and providing a set of
+arguments to ``pip`` as an ``options`` dictionary where the keys are
+valid ``pip`` arguments in short or long form without leading dashes
+and the values are the respective argument values, or ``True`` in the
+case of flags. The following shows a more advance use of this task. ::
+
+    config = {
+        'pip': {
+            'command': 'install',
+            'options': {
+                'r': './data/project_requirements.txt',
+                'target': './requirements',
+                'upgrade': True,
+                'force-reinstall': True
+            }
+        }
+    }
+
 """
 import pip
 import bolt.utils as utilities
