@@ -1,5 +1,5 @@
 ################################################################################
-Documentation Improvements
+Documentation ToDos
 ################################################################################
 
 The following is a list of ToDos to improve the documentation. Ideally, we won't
