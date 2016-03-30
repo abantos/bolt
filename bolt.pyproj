@@ -33,6 +33,9 @@
     <Compile Include="tasks\bolt_setup.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tasks\bolt_shell.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tasks\__init__.py">
       <SubType>Code</SubType>
     </Compile>

@@ -1,4 +1,25 @@
 """
+setup
+-----
+
+The ``setup`` task provides an automation hook to execute ``setup.py``
+commands and options inside of Bolt. The task, in its simplest form,
+assumes a default ``setup.py`` in the current working directory and
+uses a ``build`` command as a default if no configuration is provided.
+
+The task configuration allows spcifying a setup script, which by 
+default will be set to ``setup.py`` if no script is specified, a valid
+command, and it command arguments. The following example shows how to
+configure the task. ::
+
+    config = {
+        'script': 'special_setup.py',
+        'command': 'install',
+        'options': {
+            'verbose': True,
+            'dry-run': True
+        }
+    }
 """
 import distutils.core as dcore
 

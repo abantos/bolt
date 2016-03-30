@@ -17,11 +17,13 @@ from bolt._btutils import load_script
 import bolt.tasks.bolt_pip as bolt_pip
 import bolt.tasks.bolt_delete_files as bolt_delete_files
 import bolt.tasks.bolt_setup as bolt_setup
+import bolt.tasks.bolt_shell as bolt_shell
 
 def _register_standard_modules(registry):
     bolt_delete_files.register_tasks(registry)
     bolt_pip.register_tasks(registry)
     bolt_setup.register_tasks(registry)
+    bolt_shell.register_tasks(registry)
 
 
 class _BoltApplication(object):
