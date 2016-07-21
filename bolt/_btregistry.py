@@ -28,7 +28,8 @@ class TaskRegistry(object):
         :param name:
         :return:
         """
-        return  self._tasks[name]
+        task_name = self._extract_task_name(name)
+        return  self._tasks[task_name]
 
 
     def _is_valid_task(self, task):
@@ -38,5 +39,9 @@ class TaskRegistry(object):
                 if not isinstance(t, str):
                     return False
         return callable(task) or is_list
+
+
+    def _extract_task_name(self, full_task):
+        return full_task.split('.')[0]
 
 
