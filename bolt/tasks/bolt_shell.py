@@ -57,7 +57,10 @@ class ShellExecuteTask(object):
 
     def _run(self):
         result = sp.call(self.command_line)
-        result.check_returncode()
+        if isinstance(result, sp.CompletedProcess):
+            result.check_returncode()
+        else:
+            assert result == 0
         
 
 
