@@ -35,6 +35,15 @@ class TestTaskRegistry(unittest.TestCase):
             self.subject.register_task("invalid", ['foo', 'bar', 3])
 
 
+    def test_allows_specifying_subtask_returing_correct_callable(self):
+        task_name = 'test'
+        subtask_name = 'test.sub'
+        self.subject.register_task(task_name, self.test_callable)
+        actual = self.subject.get(subtask_name)
+
+        self.assertEqual(actual, self.test_callable)
+
+
 
     def test_callable(self):
         pass
