@@ -45,6 +45,7 @@ class _BoltApplication(object):
     def run(self):
         self._initialize_execution_options()
         self._initialize_logging()
+        logging.info("Current working directory: " + os.getcwd())
         self._register_standard_modules()
         self._load_bolt_file()
         self._initialize_configuration_manager()
@@ -141,6 +142,7 @@ def run():
     Entry point for the `bolt` executable.
     """
     try:
+        print(os.getcwd())
         _bolt_application.run()
     except Exception as e:
         logging.exception(e)
