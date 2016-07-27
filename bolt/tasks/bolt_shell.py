@@ -56,8 +56,7 @@ class ShellExecuteTask(object):
 
 
     def _run(self):
-        result = sp.call(self.command_line)
-        result.check_returncode()
+        sp.check_call(self.command_line)
         
 
 
