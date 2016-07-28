@@ -9,5 +9,5 @@ config = {
     }
 }
 
-
+bolt.register_task('ct', ['shell'])
 bolt.register_task('default', ['shell'])
