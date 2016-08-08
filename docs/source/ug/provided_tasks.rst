@@ -23,3 +23,7 @@ The following documents the included tasks and how they work.
 
 ..  automodule:: bolt.tasks.bolt_shell
     :members:
+
+
+..  automodule:: bolt.tasks.bolt_conttest
+    :members:
