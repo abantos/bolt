@@ -20,6 +20,7 @@ To use this task, you need to have ``conttest`` installed, which you can do by c
 
     pip install conttest
 """
+import logging
 import conttest.conttest as ct
 import bolt 
 
@@ -30,9 +31,11 @@ def execute_conttest(**kwargs):
     config = kwargs.get('config')
     task_name = config.get('task')
     directory = config.get('directory') or './'
+    logging.info('Executing continously "{task}" at {directory}'.format(task=task_name, directory=directory))
     ct.watch_dir(directory, lambda: bolt.run_task(task_name), method=ct.TIMES)
 
 
 
 def register_tasks(registry):
     registry.register_task('conttest', execute_conttest)
+    logging.debug('conttest task registered.')

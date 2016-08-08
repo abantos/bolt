@@ -22,6 +22,7 @@ configure the task. ::
     }
 """
 import distutils.core as dcore
+import logging
 
 import bolt.utils as utilities
 
@@ -36,6 +37,7 @@ class _SetupArgumentGenerator(utilities.CommonCommandAndArgumentsGenerator):
 
 
 def execute_setup(**kwargs):
+    logging.info('Executing Setup')
     config = kwargs.get('config')
     setup_script = config.get('script')
     if setup_script:
@@ -49,3 +51,4 @@ def execute_setup(**kwargs):
 
 def register_tasks(registry):
     registry.register_task('setup', execute_setup)
+    logging.debug('setup task registered.')

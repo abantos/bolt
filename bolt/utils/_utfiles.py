@@ -1,6 +1,7 @@
 """
 """
 import glob
+import logging
 import os
 
 class FileFinder(object):
@@ -44,3 +45,4 @@ def delete_files_in(all_files):
     """
     for f in all_files:
         os.remove(f)
+        logging.info(f + ' deleted')
