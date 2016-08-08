@@ -37,6 +37,7 @@ case of flags. The following shows a more advance use of this task. ::
     }
 
 """
+import logging
 import pip
 import bolt.utils as utilities
 
@@ -65,9 +66,11 @@ class _PipArgumentGenerator(utilities.CommonCommandAndArgumentsGenerator):
 
 
 def execute_pip(**kwargs):
+    logging.info('Executing Python Package Installer')
     config = kwargs.get('config')
     generator = _PipArgumentGenerator()
     args = generator.generate_from(config)
+    logging.debug('Arguments: ' + repr(args))
     pip.main(args)
 
 
@@ -75,4 +78,5 @@ def execute_pip(**kwargs):
 
 def register_tasks(registry):
     registry.register_task('pip', execute_pip)
+    logging.debug('pip task registered.')
     

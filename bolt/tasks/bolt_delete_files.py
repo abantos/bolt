@@ -54,6 +54,7 @@ The ``recursive`` option indicates if sub-directories should be searched for
 matches. This option is optional and has a value of ``False`` by default. 
 """
 import glob
+import logging
 import os
 
 import bolt
@@ -79,6 +80,7 @@ class DeleteFilesTask(object):
 
 
     def _execute_delete(self):
+        logging.info('Deleting {pat} from {srcdir}.'.format(pat=self.pattern, srcdir=self.sourcedir))
         finder = utilities.FileFinder(self.sourcedir, self.pattern, self.recursive)
         matches = finder.find()
         utilities.delete_files_in(matches)
@@ -90,6 +92,7 @@ class DeletePycTask(DeleteFilesTask):
     def __call__(self, **kwargs):
         config = kwargs.get('config')
         config['pattern'] = '*.pyc'
+        logging.debug('Delete pattern set to ' + config['pattern'])
         return super(DeletePycTask, self).__call__(**kwargs)
 
 
@@ -97,5 +100,7 @@ class DeletePycTask(DeleteFilesTask):
 
 def register_tasks(registry):
     registry.register_task('delete-files', DeleteFilesTask())
+    logging.debug('delete-files task registered.')
     registry.register_task('delete-pyc', DeletePycTask())
+    logging.debug('delete-pyc task registered.')
 

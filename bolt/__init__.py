@@ -97,7 +97,7 @@ class _BoltApplication(object):
         elif log_level_arg == 'warning': return logging.WARNING
         elif log_level_arg == 'error': return logging.ERROR
         elif log_level_arg == 'critical': return logging.CRITICAL
-        else: return logging.WARNING
+        else: return logging.INFO
 
 
 
@@ -105,7 +105,7 @@ class _BoltApplication(object):
         parser = argparse.ArgumentParser()
         parser.add_argument('task', nargs='?', default='default')
         parser.add_argument('--bolt-file', default='boltfile.py')
-        parser.add_argument('--log-level', default='warning')
+        parser.add_argument('--log-level', default='info')
         parser.add_argument('--log-file', default=None)
         return parser
 
