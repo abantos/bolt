@@ -1,6 +1,5 @@
 """
 """
-import logging
 
 class TaskRunner(object):
     """
@@ -13,7 +12,6 @@ class TaskRunner(object):
 
 
     def build(self, task_name):
-        logging.debug('Building task: ' + task_name)
         self._script = []
         self._build_task(task_name)
 
@@ -21,8 +19,6 @@ class TaskRunner(object):
     def run(self):
         for task in self._script:
             operation, config = task
-            logging.debug('Executing task callable: ' + repr(operation))
-            logging.debug('- Configuration: ' + repr(config))
             operation(config=config)
 
 
@@ -31,9 +27,7 @@ class TaskRunner(object):
         if callable(task_operation):
             task_config = self._config.get(task_name)
             requested_task = (task_operation, task_config)
-            logging.debug('Appending task to script: ' + task_name)
             self._script.append(requested_task)
         else:
             for subtask in task_operation:
-                logging.debug('Building sub-task: ' + subtask)
                 self._build_task(subtask)
