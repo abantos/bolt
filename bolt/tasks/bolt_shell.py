@@ -26,6 +26,7 @@ takes a few parameters::
 
 ..  todo::  Find a better example.
 """
+import logging
 import subprocess as sp
 
 from bolt._bterror import InvalidConfigurationError
@@ -56,9 +57,11 @@ class ShellExecuteTask(object):
 
 
     def _run(self):
+        logging.debug('Shell command line: ', repr(self.command_line))
         sp.check_call(self.command_line)
         
 
 
 def register_tasks(registry):
     registry.register_task('shell', ShellExecuteTask())
+    logging.debug('shell task registered')
