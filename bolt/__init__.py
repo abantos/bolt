@@ -19,6 +19,7 @@ import bolt.tasks.bolt_delete_files as bolt_delete_files
 import bolt.tasks.bolt_setup as bolt_setup
 import bolt.tasks.bolt_shell as bolt_shell
 import bolt.tasks.bolt_conttest as bolt_conttest
+import bolt.tasks.bolt_nose as bolt_nose
 
 def _register_standard_modules(registry):
     bolt_delete_files.register_tasks(registry)
@@ -26,6 +27,7 @@ def _register_standard_modules(registry):
     bolt_setup.register_tasks(registry)
     bolt_shell.register_tasks(registry)
     bolt_conttest.register_tasks(registry)
+    bolt_nose.register_tasks(registry)
 
 
 class _BoltApplication(object):
@@ -147,6 +149,8 @@ def run():
     """
     Entry point for the `bolt` executable.
     """
+    # Uncomment to attach debugger.
+    # i = input('Press enter to continue')
     try:
         _bolt_application.run()
     except Exception as e:

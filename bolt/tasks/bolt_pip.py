@@ -55,7 +55,10 @@ class _PipArgumentGenerator(utilities.CommonCommandAndArgumentsGenerator):
     def _convert_config_to_arguments(self):
         self.command = self.config.get('command')
         self.package = self.config.get('package')
-        return [DEFAULT_COMMAND, self.package] if self._installing_single_package else self._converted_options
+        if self._installing_single_package:
+            self.args = [DEFAULT_COMMAND, self.package]
+        else:
+            super(_PipArgumentGenerator, self)._convert_config_to_arguments()
             
 
     @property
