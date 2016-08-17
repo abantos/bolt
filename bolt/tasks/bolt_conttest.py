@@ -21,13 +21,13 @@ To use this task, you need to have ``conttest`` installed, which you can do by c
     pip install conttest
 """
 import logging
-import conttest.conttest as ct
 import bolt 
 
 
 
 
 def execute_conttest(**kwargs):
+    import conttest.conttest as ct
     config = kwargs.get('config')
     task_name = config.get('task')
     directory = config.get('directory') or './'
