@@ -1,7 +1,7 @@
 """
 
 """
-project = u'bolt'
+project = u'bolt-ta'
 description = """
 A task runner written in Python
 """
