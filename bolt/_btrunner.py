@@ -5,9 +5,10 @@ class TaskRunner(object):
     """
     """
 
-    def __init__(self, config, registry):
+    def __init__(self, config, registry, continue_on_error):
         self._config = config
         self._registry = registry
+        self._continue_on_error = continue_on_error
         self._script = None
 
 
@@ -19,7 +20,8 @@ class TaskRunner(object):
     def run(self):
         for task in self._script:
             operation, config = task
-            operation(config=config)
+            result = operation(config=config)
+            self._check_result(result)
 
 
     def _build_task(self, task_name):
@@ -31,3 +33,8 @@ class TaskRunner(object):
         else:
             for subtask in task_operation:
                 self._build_task(subtask)
+
+
+    def _check_result(self, result):
+        if result not in {0, None} and not self._continue_on_error:
+            raise SystemExit(result or 1)

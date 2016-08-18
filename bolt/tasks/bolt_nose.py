@@ -35,15 +35,7 @@ def execute_nose(**kwargs):
     args = generator.generate_from(config)
     logging.debug('Arguments: ' + repr(args))
     result = sp.call(args)
-    # try:
-    #     test_program = nose.core.TestProgram(argv=args, exit=False) 
-    #     result = test_program.success
-    #     del(test_program)
-
-    #     # nose.core.run(argv=args)
-    # except SystemExit as ex:
-    #     # Nose tries to sys.exit(), so we have to intercept it.
-    #     pass
+    return result
 
 
 

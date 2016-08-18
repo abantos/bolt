@@ -74,7 +74,11 @@ def execute_pip(**kwargs):
     generator = _PipArgumentGenerator()
     args = generator.generate_from(config)
     logging.debug('Arguments: ' + repr(args))
-    pip.main(args)
+    try:
+        pip.main(args)
+    except SystemExit as exc:
+        return exc.code
+    return 0
 
 
 

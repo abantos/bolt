@@ -38,7 +38,7 @@ class ShellExecuteTask(object):
         self.config = kwargs.get('config')
         self._verify_valid_configuration()
         self._build_command_line()
-        self._run()
+        return self._run()
 
 
     def _verify_valid_configuration(self):
@@ -58,7 +58,7 @@ class ShellExecuteTask(object):
 
     def _run(self):
         logging.debug('Shell command line: ', repr(self.command_line))
-        sp.check_call(self.command_line)
+        return sp.call(self.command_line)
         
 
 
