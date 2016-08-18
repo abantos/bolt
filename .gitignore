@@ -36,6 +36,7 @@ var/
 .idea/
 # Visual Studio
 .vs/
+.vscode/
 
 # Local virtual environments
 .virtualenv/
