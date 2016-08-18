@@ -65,6 +65,7 @@ class DeleteFilesTask(object):
     def __call__(self, **kwargs):
         self._set_valid_configuration(kwargs.get('config'))
         self._execute_delete()
+        return 0
 
 
     def _set_valid_configuration(self, config):

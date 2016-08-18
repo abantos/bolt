@@ -47,6 +47,7 @@ def execute_setup(**kwargs):
     generator = _SetupArgumentGenerator()
     args = generator.generate_from(config)
     dcore.run_setup(setup_script, args)
+    return 0
 
 
 def register_tasks(registry):

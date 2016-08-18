@@ -32,7 +32,8 @@ def execute_conttest(**kwargs):
     task_name = config.get('task')
     directory = config.get('directory') or './'
     logging.info('Executing continously "{task}" at {directory}'.format(task=task_name, directory=directory))
-    ct.watch_dir(directory, lambda: bolt.run_task(task_name), method=ct.TIMES)
+    continue_on_error = True
+    ct.watch_dir(directory, lambda: bolt.run_task(task_name, continue_on_error), method=ct.TIMES)
 
 
 

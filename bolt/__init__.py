@@ -56,8 +56,8 @@ class _BoltApplication(object):
         self._run_main_task()
 
 
-    def run_task(self, task_name):
-        runner = TaskRunner(self.config_manager, self.registry)
+    def run_task(self, task_name, continue_on_error):
+        runner = TaskRunner(self.config_manager, self.registry, continue_on_error)
         runner.build(task_name)
         runner.run()
 
@@ -109,6 +109,7 @@ class _BoltApplication(object):
         parser.add_argument('--bolt-file', default='boltfile.py')
         parser.add_argument('--log-level', default='info')
         parser.add_argument('--log-file', default=None)
+        parser.add_argument('--continue-on-error', default=False)
         return parser
 
 
@@ -123,7 +124,7 @@ class _BoltApplication(object):
 
 
     def _run_main_task(self):
-        self.run_task(self._options.task)
+        self.run_task(self._options.task, self._options.continue_on_error)
 
 
 _bolt_application = _BoltApplication()
@@ -141,8 +142,9 @@ def register_task(name, task):
     _bolt_application.registry.register_task(name, task)
 
 
-def run_task(task_name):
-    _bolt_application.run_task(task_name)
+def run_task(task_name, continue_on_error=None):
+    continue_on_error = continue_on_error or False
+    _bolt_application.run_task(task_name, continue_on_error)
 
 
 def run():
