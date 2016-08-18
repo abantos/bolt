@@ -71,6 +71,11 @@ class TestTaskRunner(unittest.TestCase):
             self.subject.build('inexistent')
 
 
+    # def test_exits_if_task_does_not_return_zero(self):
+    #     with self.assertRaises(SystemExit):
+    #         self.given('failing_task')
+
+
     def given(self, task_name):
         self.subject.build(task_name)
         self.subject.run()
