@@ -73,9 +73,7 @@ class TestNoseArgumentGenerator(unittest.TestCase):
         self.generated_args = self.subject.generate_from(config)
 
 
-    def expect(self, expected):
-        if expected:
-            expected.insert(0, 'dummy')
+    def expect(self, expected):        
         commonitems = set(self.generated_args).intersection(expected)
         self.assertEqual(len(commonitems), len(expected))
 
