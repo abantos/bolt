@@ -1,6 +1,13 @@
 import logging
+import os.path 
 
 import bolt
+
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+_src_dir = os.path.join(PROJECT_ROOT, 'bolt')
+_test_dir = os.path.join(PROJECT_ROOT, 'test')
+_output_dir = os.path.join(PROJECT_ROOT, 'output')
+_coverage_dir = os.path.join(_output_dir, 'coverage')
 
 config = {
     'pip': {
@@ -10,24 +17,27 @@ config = {
         }
     },
     'delete-pyc': {
-        'sourcedir': './bolt/',
+        'sourcedir': _src_dir,
         'recursive': True,
         'test-pyc': {
-            'sourcedir': './test/'
+            'sourcedir': _test_dir,
         }
-    },
-    'shell': {
-        'command': 'nosetests',
-        'arguments': ['./test/']
     },
     'conttest' : {
         'task': 'ut'
     },
     'nose': {
-        'directory': './test/',
-        'options': {
-            'with-xunit': True,
-            'xunit-file': 'unit_tests_log.xml'
+        'directory': _test_dir,
+        'ci': {
+            'options': {
+                'with-xunit': True,
+                'xunit-file': os.path.join(_output_dir, 'unit_tests_log.xml'),
+                'with-coverage': True,
+                'cover-erase': True,
+                'cover-package': 'bolt',
+                'cover-html': True,
+                'cover-html-dir': _coverage_dir,
+            }
         }
     },
     "setup": {
@@ -38,8 +48,14 @@ config = {
     }
 }
 
+# Development tasks
 bolt.register_task('clear-pyc', ['delete-pyc', 'delete-pyc.test-pyc'])
 bolt.register_task('ut', ['clear-pyc', 'nose'])
 bolt.register_task('ct', ['conttest'])
 bolt.register_task('pack', ['setup', 'setup.egg-info'])
+
+# CI/CD tasks
+bolt.register_task('run-unit-tests', ['nose.ci'])
+
+# Default task (not final).
 bolt.register_task('default', ['pip', 'ut'])
