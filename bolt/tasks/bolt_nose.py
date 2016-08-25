@@ -1,4 +1,21 @@
 """
+nose
+----
+
+Executes unit tests using nose and nosetests as the unit test runner. The task
+allows to specify the directory where the tests are located through the ``directory``
+parameter and supports all the arguments available in the installed version 
+of nosetests::
+
+    config = {
+        'directory': 'test/unit',
+        'xunit-file': 'output/unit_tests.xml'
+        'with-coverage': True,
+        'cover-erase': True,
+        'cover-package': 'mypackage',
+        'cover-html': True,
+        'cover-html-dir': 'output/coverage',
+    }
 """
 import logging
 import os.path
