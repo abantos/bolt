@@ -26,6 +26,9 @@ config = {
     'conttest' : {
         'task': 'ut'
     },
+    'mkdir': {
+        'directory': _output_dir,
+    },
     'nose': {
         'directory': _test_dir,
         'ci': {
@@ -55,7 +58,7 @@ bolt.register_task('ct', ['conttest'])
 bolt.register_task('pack', ['setup', 'setup.egg-info'])
 
 # CI/CD tasks
-bolt.register_task('run-unit-tests', ['nose.ci'])
+bolt.register_task('run-unit-tests', ['mkdir', 'nose.ci'])
 
 # Default task (not final).
 bolt.register_task('default', ['pip', 'ut'])

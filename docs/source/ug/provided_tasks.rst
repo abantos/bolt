@@ -13,6 +13,14 @@ The following documents the included tasks and how they work.
     :members:
 
 
+..  automodule:: bolt.tasks.bolt_mkdir
+    :members:
+
+
+..  automodule:: bolt.tasks.bolt_shell
+    :members:
+
+
 ..  automodule:: bolt.tasks.bolt_pip
     :members:
 
@@ -21,9 +29,9 @@ The following documents the included tasks and how they work.
     :members:
 
 
-..  automodule:: bolt.tasks.bolt_shell
+..  automodule:: bolt.tasks.bolt_nose
     :members:
 
-
+    
 ..  automodule:: bolt.tasks.bolt_conttest
     :members:

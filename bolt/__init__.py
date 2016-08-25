@@ -20,6 +20,7 @@ import bolt.tasks.bolt_setup as bolt_setup
 import bolt.tasks.bolt_shell as bolt_shell
 import bolt.tasks.bolt_conttest as bolt_conttest
 import bolt.tasks.bolt_nose as bolt_nose
+import bolt.tasks.bolt_mkdir as bolt_mkdir 
 
 def _register_standard_modules(registry):
     bolt_delete_files.register_tasks(registry)
@@ -28,6 +29,7 @@ def _register_standard_modules(registry):
     bolt_shell.register_tasks(registry)
     bolt_conttest.register_tasks(registry)
     bolt_nose.register_tasks(registry)
+    bolt_mkdir.register_tasks(registry)
 
 
 class _BoltApplication(object):
