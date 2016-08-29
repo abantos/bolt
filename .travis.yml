@@ -9,9 +9,6 @@ install:
 script:
 - bolt run-unit-tests
 - make -C docs html
-- git config user.email "travis@ci.com"
-- git config user.name "Travis CI"
-- bolt git-tag
 
 deploy:
   provider: pypi
