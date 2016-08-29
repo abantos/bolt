@@ -9,6 +9,7 @@ install:
 script:
 - bolt run-unit-tests
 - make -C docs html
+- bolt git-tag
 notifications:
   slack: bolt-ta:EVxZet7QX82F4aEh21tvrtFc
 deploy:
