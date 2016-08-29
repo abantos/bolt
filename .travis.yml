@@ -28,6 +28,4 @@ notifications:
     on_success: always
     on_failure: always
 
-  email:
-    on_success: never
-    on_failure: never
+  email: false
