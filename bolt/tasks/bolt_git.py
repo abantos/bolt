@@ -17,7 +17,8 @@ def execute_tag(**kwargs):
 
     if release_branch == current_branch:
         tag = config.get('tag')
-        repo.create_tag(tag)
+        message = config.get('tag-message')
+        repo.create_tag(tag, message=message)
         logging.info('Tag <{tag}> created'.format(tag=tag))
         remote_template = config.get('remote-template')
         user = os.environ.get('GIT_USERNAME')

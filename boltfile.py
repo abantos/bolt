@@ -54,7 +54,8 @@ config = {
         'release-branch': 'master',
         'current-branch-var': 'TRAVIS_BRANCH',
         'remote-template': 'https://{user}:{password}@github.com/abantos/bolt',
-        'tag': 'v{release}'.format(release=bolt.about.release)
+        'tag': 'v{release}'.format(release=bolt.about.release),
+        'tag-message': 'Bolt {release}'.format(release=bolt.about.release)
     }
 }
 
