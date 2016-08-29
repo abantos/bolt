@@ -52,6 +52,7 @@ config = {
     },
     'git-tag': {
         'release-branch': 'master',
+        'current-branch-variable': 'TRAVIS_BRANCH'
         'tag': 'v{release}'.format(release=bolt.about.release)
     }
 }
