@@ -25,3 +25,9 @@ deploy:
 
 notifications:
   slack: bolt-ta:EVxZet7QX82F4aEh21tvrtFc
+    on_success: always
+    on_failure: always
+
+  email:
+    on_success: never
+    on_failure: never
