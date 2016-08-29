@@ -2,6 +2,7 @@ import logging
 import os.path 
 
 import bolt
+import bolt.about
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 _src_dir = os.path.join(PROJECT_ROOT, 'bolt')
@@ -43,11 +44,15 @@ config = {
             }
         }
     },
-    "setup": {
+    'setup': {
         'command': 'bdist_wheel',
         'egg-info': {
             'command': 'egg_info'
         }
+    },
+    'git-tag': {
+        'release-branch': 'master',
+        'tag': 'v{release}'.format(release=bolt.about.release)
     }
 }
 
