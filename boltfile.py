@@ -53,7 +53,7 @@ config = {
     'git-tag': {
         'release-branch': 'master',
         'current-branch-var': 'TRAVIS_BRANCH',
-        'remote-template': 'https://{user}:{password}@github.com/abantos/bolt'
+        'remote-template': 'https://{user}:{password}@github.com/abantos/bolt',
         'tag': 'v{release}'.format(release=bolt.about.release)
     }
 }
