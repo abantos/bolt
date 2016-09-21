@@ -61,7 +61,10 @@ class _BoltApplication(object):
     def run_task(self, task_name, continue_on_error):
         runner = TaskRunner(self.config_manager, self.registry, continue_on_error)
         runner.build(task_name)
-        runner.run()
+        try:
+            runner.run()
+        finally:
+            runner.tear_down()
 
 
     def _register_standard_modules(self):

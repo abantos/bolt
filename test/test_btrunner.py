@@ -25,6 +25,9 @@ class TestTaskRunner(unittest.TestCase):
         self.registry.register_task('configurable', self.configurable_task)
         self.registry.register_task('failing_task', self.failing_task)
         self.registry.register_task('multi_task_with_failures', ['task_1', 'failing_task', 'task_2'])
+        self.tear_down_task = TearDownTask()
+        self.registry.register_task('has_tear_down', self.tear_down_task)
+        self.registry.register_task('partially_executed', ['failing_task', 'has_tear_down'])
 
 
     def setUpConfig(self):
@@ -85,9 +88,24 @@ class TestTaskRunner(unittest.TestCase):
         self.expect_executed('task_2')
 
 
+    def test_calls_tear_down_on_tasks_that_implement_it(self):
+        self.given('has_tear_down')
+        self.assertTrue(self.tear_down_task.tear_down_called)
+
+
+    def test_does_not_call_teardown_if_script_fails_before_executing_task(self):
+        with self.assertRaises(SystemExit):
+            self.given('partially_executed')
+            self.assertFalse(self.tear_down_task.tear_down_called)
+
+
+
     def given(self, task_name):
         self.subject.build(task_name)
-        self.subject.run()
+        try:
+            self.subject.run()
+        finally:
+            self.subject.tear_down()
 
 
     def expect_executed(self, task_name):
@@ -118,6 +136,21 @@ class TestTaskRunner(unittest.TestCase):
 
     def failing_task(self, config):
         return 1
+
+
+
+class TearDownTask(object):
+
+    def __init__(self):
+        self.called = False
+        self.tear_down_called = False
+        return super(TearDownTask, self).__init__()
+
+    def __call__(self, **kwargs):
+        self.called = True
+
+    def tear_down(self):
+        self.tear_down_called = True
 
 
 

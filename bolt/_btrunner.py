@@ -10,10 +10,12 @@ class TaskRunner(object):
         self._registry = registry
         self._continue_on_error = continue_on_error
         self._script = None
+        self._executed_operations = None
 
 
     def build(self, task_name):
         self._script = []
+        self._executed_operations = []
         self._build_task(task_name)
 
 
@@ -22,6 +24,13 @@ class TaskRunner(object):
             operation, config = task
             result = operation(config=config)
             self._check_result(result)
+            self._executed_operations.append(operation)
+
+
+    def tear_down(self):
+        for operation in self._executed_operations:
+            if hasattr(operation, 'tear_down'):
+                operation.tear_down()
 
 
     def _build_task(self, task_name):
