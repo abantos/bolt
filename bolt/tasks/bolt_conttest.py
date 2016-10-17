@@ -21,22 +21,28 @@ To use this task, you need to have ``conttest`` installed, which you can do by c
     pip install conttest
 """
 import logging
+import os
+
 import bolt 
 
 
+class ExecuteConttest(object):
+
+    def __call__(self, **kwargs):
+        config = kwargs.get('config') 
+        self.task_name = config.get('task')
+        self.directory = config.get('directory') or os.getcwd()
+        self.continue_on_error = True
+        logging.info('Executing continously "{task}" at {directory}'.format(task=self.task_name, directory=self.directory))
+        self.execute_task()
 
 
-def execute_conttest(**kwargs):
-    import conttest.conttest as ct
-    config = kwargs.get('config')
-    task_name = config.get('task')
-    directory = config.get('directory') or './'
-    logging.info('Executing continously "{task}" at {directory}'.format(task=task_name, directory=directory))
-    continue_on_error = True
-    ct.watch_dir(directory, lambda: bolt.run_task(task_name, continue_on_error), method=ct.TIMES)
+    def execute_task(self):
+        import conttest.conttest as ct
+        ct.watch_dir(self.directory, lambda: bolt.run_task(self.task_name, self.continue_on_error), method=ct.TIMES)
 
 
 
 def register_tasks(registry):
-    registry.register_task('conttest', execute_conttest)
+    registry.register_task('conttest', ExecuteConttest())
     logging.debug('conttest task registered.')
