@@ -23,6 +23,7 @@
   <ItemGroup>
     <Compile Include="about.py" />
     <Compile Include="tasks\bolt_conttest.py" />
+    <Compile Include="tasks\bolt_mkdir.py" />
     <Compile Include="tasks\bolt_nose.py">
       <SubType>Code</SubType>
     </Compile>
