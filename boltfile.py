@@ -60,7 +60,7 @@ config = {
 
 # Development tasks
 bolt.register_task('clear-pyc', ['delete-pyc', 'delete-pyc.test-pyc'])
-bolt.register_task('ut', ['clear-pyc', 'coverage'])
+bolt.register_task('ut', ['clear-pyc', 'nose'])
 bolt.register_task('ct', ['conttest'])
 bolt.register_task('pack', ['setup', 'setup.egg-info'])
 
