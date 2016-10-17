@@ -41,6 +41,7 @@ config = {
                 'cover-package': 'bolt',
                 'cover-html': True,
                 'cover-html-dir': _coverage_dir,
+                'cover-branches': True,
             }
         }
     },
@@ -50,11 +51,16 @@ config = {
             'command': 'egg_info'
         }
     },
+    'coverage': {
+        'task': 'nose',
+        'include': ['bolt'],
+        'output': os.path.join(_output_dir, 'ut_coverage')
+    }
 }
 
 # Development tasks
 bolt.register_task('clear-pyc', ['delete-pyc', 'delete-pyc.test-pyc'])
-bolt.register_task('ut', ['clear-pyc', 'nose'])
+bolt.register_task('ut', ['clear-pyc', 'coverage'])
 bolt.register_task('ct', ['conttest'])
 bolt.register_task('pack', ['setup', 'setup.egg-info'])
 
