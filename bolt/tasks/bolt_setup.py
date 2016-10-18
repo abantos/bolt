@@ -36,20 +36,27 @@ class _SetupArgumentGenerator(utilities.CommonCommandAndArgumentsGenerator):
 
 
 
-def execute_setup(**kwargs):
-    logging.info('Executing Setup')
-    config = kwargs.get('config')
-    setup_script = config.get('script')
-    if setup_script:
-        config['script'] = False
-    else:
-        setup_script = DEFAULT_SETUP_SCRIPT
-    generator = _SetupArgumentGenerator()
-    args = generator.generate_from(config)
-    dcore.run_setup(setup_script, args)
-    return 0
+class ExecuteSetupTask(object):
+    
+    def __call__(self, **kwargs):
+        logging.info('Executing Setup')
+        config = kwargs.get('config')
+        self.setup_script = config.get('script')
+        if self.setup_script:
+            config['script'] = False
+        else:
+            self.setup_script = DEFAULT_SETUP_SCRIPT
+        generator = _SetupArgumentGenerator()
+        self.args = generator.generate_from(config)
+        self._execute_setup()
+        return 0
+
+
+    def _execute_setup(self):
+        dcore.run_setup(self.setup_script, self.args)
+
 
 
 def register_tasks(registry):
-    registry.register_task('setup', execute_setup)
+    registry.register_task('setup', ExecuteSetupTask())
     logging.debug('setup task registered.')

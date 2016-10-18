@@ -5,11 +5,11 @@ import unittest
 import bolt.tasks.bolt_pip as bpip
 import _mocks as mck
 
-class TestPipArgumentGenerator(unittest.TestCase):
+class TestExecutePipTask(unittest.TestCase):
 
     def setUp(self):
         self.subject = ExecutePipTaskSpy()
-        return super(TestPipArgumentGenerator, self).setUp()
+        return super(TestExecutePipTask, self).setUp()
     
     def test_empty_configuration_assumes_a_requirements_file_in_current_directory(self):
         self.given({})
