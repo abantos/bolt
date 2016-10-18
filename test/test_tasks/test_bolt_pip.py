@@ -3,11 +3,12 @@
 import unittest
 
 import bolt.tasks.bolt_pip as bpip
+import _mocks as mck
 
 class TestPipArgumentGenerator(unittest.TestCase):
 
     def setUp(self):
-        self.subject = bpip._PipArgumentGenerator()
+        self.subject = ExecutePipTaskSpy()
         return super(TestPipArgumentGenerator, self).setUp()
     
     def test_empty_configuration_assumes_a_requirements_file_in_current_directory(self):
@@ -25,14 +26,28 @@ class TestPipArgumentGenerator(unittest.TestCase):
 
 
     def given(self, config):
-        self.generated_args = self.subject.generate_from(config)
+        self.subject(config=config)
 
 
     def expect(self, expected):
-        commonitems = set(self.generated_args).intersection(expected)
+        commonitems = set(self.subject.args).intersection(expected)
         self.assertEqual(len(commonitems), len(expected))
 
 
+
+class ExecutePipTaskSpy(bpip.ExecutePipTask):
+    
+    def _execute_pip(self):
+        pass
+
+
+
+class TestRegisterTasks(unittest.TestCase):
+    
+    def test_registers_pip(self):
+        registry = mck.TaskRegistryDouble()
+        bpip.register_tasks(registry)
+        self.assertTrue(registry.contains('pip'))
 
 
 if __name__=='__main__':

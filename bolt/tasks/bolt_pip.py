@@ -64,26 +64,31 @@ class _PipArgumentGenerator(utilities.CommonCommandAndArgumentsGenerator):
     @property
     def _installing_single_package(self):
         return self.command == DEFAULT_COMMAND and self.package
+
+
+
+class ExecutePipTask(object):
     
+    def __call__(self, **kwargs):
+        logging.info('Executing Python Package Installer')
+        config = kwargs.get('config')
+        generator = _PipArgumentGenerator()
+        self.args = generator.generate_from(config)
+        logging.debug('Arguments: ' + repr(self.args))
+        try:
+            self._execute_pip()
+        except SystemExit as exc:
+            return exc.code
+        return 0
 
 
-
-def execute_pip(**kwargs):
-    logging.info('Executing Python Package Installer')
-    config = kwargs.get('config')
-    generator = _PipArgumentGenerator()
-    args = generator.generate_from(config)
-    logging.debug('Arguments: ' + repr(args))
-    try:
-        pip.main(args)
-    except SystemExit as exc:
-        return exc.code
-    return 0
+    def _execute_pip(self):
+        pip.main(self.args)
 
 
 
 
 def register_tasks(registry):
-    registry.register_task('pip', execute_pip)
+    registry.register_task('pip', ExecutePipTask())
     logging.debug('pip task registered.')
     
