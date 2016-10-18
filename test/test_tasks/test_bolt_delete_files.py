@@ -2,6 +2,7 @@ import unittest
 
 import bolt
 import bolt.tasks.bolt_delete_files as df
+import _mocks as mck
 
 
 class TestDeleteFilesTask(unittest.TestCase):
@@ -29,7 +30,7 @@ class TestDeleteFilesTask(unittest.TestCase):
             config={
                     'sourcedir': 'C:\\sourcedir',
                 }
-            self.subject()
+            self.given(config)
 
 
     def test_it_default_to_no_recursive(self):
@@ -79,7 +80,7 @@ class TestDeleteFilesTask(unittest.TestCase):
 
 
 class DeleteFilesTaskSpy(df.DeleteFilesTask):
-
+    
     def __init__(self):
         self.executed = False
         return super(DeleteFilesTaskSpy, self).__init__()
@@ -87,6 +88,43 @@ class DeleteFilesTaskSpy(df.DeleteFilesTask):
 
     def _execute_delete(self):
         self.executed = True
+
+
+
+class TestDeletePycTask(unittest.TestCase):
+    
+    def test_uses_pyc_file_patter(self):
+        subject = DeletePycTaskSpy()
+        config = {
+            'sourcedir': 'C:\\sourcedir'
+        }
+        subject(config=config)
+        self.assertEqual(subject.pattern, '*.pyc')
+
+
+class DeletePycTaskSpy(df.DeletePycTask):
+    
+    def _execute_delete(self):
+        pass
+    
+
+
+class TestRegisterTasks(unittest.TestCase):
+    
+    def setUp(self):
+        self.registry = mck.TaskRegistryDouble()
+        df.register_tasks(self.registry)
+        return super(TestRegisterTasks, self).setUp()
+    
+    def test_registers_delete_files_task(self):
+        self.assertTrue(self.registry.contains('delete-files'))
+
+
+    def test_registers_delete_pyc_task(self):
+        self.assertTrue(self.registry.contains('delete-pyc'))
+        
+
+
 
 
 
