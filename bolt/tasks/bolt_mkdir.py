@@ -15,14 +15,21 @@ import logging
 import os
 
 
-def execute_mkdir(**kwargs):
-    config = kwargs.get('config')
-    directory = config.get('directory')
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+class ExecuteMKDir(object):
+    
+
+    def __call__(self, **kwargs):
+        config = kwargs.get('config')
+        self.directory = config.get('directory')
+        if not os.path.exists(self.directory):
+            self._create_directories()
+
+
+    def _create_directories(self):
+        os.makedirs(self.directory)
 
 
 def register_tasks(registry):
-    registry.register_task('mkdir', execute_mkdir)
+    registry.register_task('mkdir', ExecuteMKDir())
     logging.debug('mkdir task registered.')
     
