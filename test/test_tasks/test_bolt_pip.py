@@ -24,9 +24,19 @@ class TestPipArgumentGenerator(unittest.TestCase):
         self.given(config)
         self.expect(['install', 'apackage'])
 
+    def test_returns_error_value_if_pip_raises_system_exit(self):
+        self.subject.raise_system_exit = True
+        self.given({})
+        self.assertEqual(self.result, 1)
+
+
+    def test_returns_zero_if_success(self):
+        self.given({})
+        self.assertEqual(self.result, 0)
+
 
     def given(self, config):
-        self.subject(config=config)
+        self.result = self.subject(config=config)
 
 
     def expect(self, expected):
@@ -37,7 +47,12 @@ class TestPipArgumentGenerator(unittest.TestCase):
 
 class ExecutePipTaskSpy(bpip.ExecutePipTask):
     
+    def __init__(self):
+        self.raise_system_exit = False
+    
     def _execute_pip(self):
+        if self.raise_system_exit:
+            raise SystemExit(1)
         pass
 
 
