@@ -1,6 +1,7 @@
 import unittest
 
 import bolt.tasks.bolt_shell as bsh
+import _mocks as mck
 
 class TestShellExecuteTask(unittest.TestCase):
 
@@ -74,6 +75,14 @@ class ShellExecuteTaskSpy(bsh.ShellExecuteTask):
         if self.returncode != 0:
             raise Exception('Failed command')
 
+
+
+class TestRegisterTasks(unittest.TestCase): 
+
+    def test_registers_shell(self):
+        registry = mck.TaskRegistryDouble()
+        bsh.register_tasks(registry)
+        self.assertTrue(registry.contains('shell'))
 
 
 
