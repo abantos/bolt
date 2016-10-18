@@ -7,11 +7,11 @@ import bolt.tasks.bolt_nose as bnose
 import _mocks as mck
 
 
-class TestNoseArgumentGenerator(unittest.TestCase):
+class TestExecuteNoseTask(unittest.TestCase):
 
     def setUp(self):
         self.subject = ExecuteNoseTaskSpy()
-        return super(TestNoseArgumentGenerator, self).setUp()
+        return super(TestExecuteNoseTask, self).setUp()
 
 
     def test_specifying_no_config_runs_with_defaults(self):
