@@ -21,6 +21,7 @@ class ExecuteMKDir(object):
     def __call__(self, **kwargs):
         config = kwargs.get('config')
         self.directory = config.get('directory')
+        logging.debug('Creating directory: {directory}'.format(directory=self.directory))
         if not os.path.exists(self.directory):
             self._create_directories()
 

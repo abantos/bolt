@@ -46,21 +46,24 @@ class _NoseArgumentGenerator(utilities.ArgumentsGenerator):
 
 
 
+class ExecuteNoseTask(object):
+    
+    def __call__(self, **kwargs):
+        logging.info('Executing nose')
+        config = kwargs.get('config')
+        generator = _NoseArgumentGenerator()
+        self.args = generator.generate_from(config)
+        logging.debug('Arguments: ' + repr(self.args))
+        self._execute_nose()
+        return self.result
 
-
-def execute_nose(**kwargs):
-    logging.info('Executing nose')
-    config = kwargs.get('config')
-    generator = _NoseArgumentGenerator()
-    args = generator.generate_from(config)
-    logging.debug('Arguments: ' + repr(args))
-    result = sp.call(args)
-    return result
+    def _execute_nose(self):
+        self.result = sp.call(self.args)
 
 
 
 def register_tasks(registry):
-    registry.register_task('nose', execute_nose)
+    registry.register_task('nose', ExecuteNoseTask())
     logging.debug('nose task registered.')
 
 

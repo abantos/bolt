@@ -4,13 +4,14 @@ import unittest
 import os.path
 
 import bolt.tasks.bolt_nose as bnose
+import _mocks as mck
 
 
-class TestNoseArgumentGenerator(unittest.TestCase):
+class TestExecuteNoseTask(unittest.TestCase):
 
     def setUp(self):
-        self.subject = bnose._NoseArgumentGenerator()
-        return super(TestNoseArgumentGenerator, self).setUp()
+        self.subject = ExecuteNoseTaskSpy()
+        return super(TestExecuteNoseTask, self).setUp()
 
 
     def test_specifying_no_config_runs_with_defaults(self):
@@ -70,13 +71,27 @@ class TestNoseArgumentGenerator(unittest.TestCase):
 
 
     def given(self, config):
-        self.generated_args = self.subject.generate_from(config)
+        self.subject(config=config)
 
 
     def expect(self, expected):        
-        commonitems = set(self.generated_args).intersection(expected)
+        commonitems = set(self.subject.args).intersection(expected)
         self.assertEqual(len(commonitems), len(expected))
 
+
+
+class ExecuteNoseTaskSpy(bnose.ExecuteNoseTask):
+    
+    def _execute_nose(self):
+        self.result = 0
+    
+
+class TestRegisterTasks(unittest.TestCase):
+    
+    def test_registers_nose_task(self):
+        registry = mck.TaskRegistryDouble()
+        bnose.register_tasks(registry)
+        self.assertTrue(registry.contains('nose'))
 
 
 
