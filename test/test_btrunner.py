@@ -1,6 +1,7 @@
 import unittest
 
 import bolt._btconfig as config
+import bolt.errors as bterror
 import bolt._btregistry as registry
 
 import bolt._btrunner as runner
@@ -39,7 +40,7 @@ class TestTaskRunner(unittest.TestCase):
         self.config_mgr = config.ConfigurationManager(self.config)
     
 
-    def test_raises_runs_the_specified_task(self):
+    def test_runs_the_specified_task(self):
         self.given('task_1')
         self.expect_executed('task_1')
 
@@ -77,7 +78,7 @@ class TestTaskRunner(unittest.TestCase):
 
 
     def test_exits_if_task_does_not_return_zero(self):
-        with self.assertRaises(SystemExit):
+        with self.assertRaises(bterror.TaskError):
             self.given('failing_task')
 
 
@@ -94,16 +95,15 @@ class TestTaskRunner(unittest.TestCase):
 
 
     def test_does_not_call_teardown_if_script_fails_before_executing_task(self):
-        with self.assertRaises(SystemExit):
+        with self.assertRaises(bterror.TaskError):
             self.given('partially_executed')
             self.assertFalse(self.tear_down_task.tear_down_called)
 
 
 
     def given(self, task_name):
-        self.subject.build(task_name)
         try:
-            self.subject.run()
+            self.subject.run(task_name)
         finally:
             self.subject.tear_down()
 
@@ -114,28 +114,25 @@ class TestTaskRunner(unittest.TestCase):
 
     def task_1_callback(self, config):
         self.executed_tasks.append('task_1')
-        return 0
 
 
     def task_2_callback(self, **kwargs):
         config = kwargs.get('config')
         self.executed_tasks.append('task_2')
-        return 0
 
 
     def invalid_task(self, noconfig):
-        return 0
+        pass
 
 
     def configurable_task(self, config):
         param = config.get('param')
         self.assertEqual(param, 'value')
         self.executed_tasks.append('configurable')
-        return 0
 
 
     def failing_task(self, config):
-        return 1
+        raise bterror.TaskError()
 
 
 

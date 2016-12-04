@@ -1,5 +1,6 @@
 """
 """
+import logging
 
 class TaskRunner(object):
     """
@@ -13,24 +14,21 @@ class TaskRunner(object):
         self._executed_operations = None
 
 
-    def build(self, task_name):
-        self._script = []
-        self._executed_operations = []
-        self._build_task(task_name)
-
-
-    def run(self):
+    def run(self, task):
+        self._build(task)
         for task in self._script:
-            operation, config = task
-            result = operation(config=config)
-            self._check_result(result)
-            self._executed_operations.append(operation)
+            self._try_run_task(task)
 
 
     def tear_down(self):
         for operation in self._executed_operations:
             if hasattr(operation, 'tear_down'):
                 operation.tear_down()
+
+    def _build(self, task_name):
+        self._script = []
+        self._executed_operations = []
+        self._build_task(task_name)
 
 
     def _build_task(self, task_name):
@@ -44,6 +42,16 @@ class TaskRunner(object):
                 self._build_task(subtask)
 
 
-    def _check_result(self, result):
-        if result not in {0, None} and not self._continue_on_error:
-            raise SystemExit(result or 1)
+    def _try_run_task(self, task):
+        try:
+            self._run_task(task)
+        except Exception as ex:
+            logging.error(ex)
+            if not self._continue_on_error:
+                raise ex
+
+
+    def _run_task(self, task):
+        operation, config = task
+        result = operation(config=config)
+        self._executed_operations.append(operation)

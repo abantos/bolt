@@ -2,7 +2,7 @@
 """
 import logging
 
-from bolt._bterror import InvalidTaskError
+from bolt.errors import InvalidTaskError
 
 class TaskRegistry(object):
     """

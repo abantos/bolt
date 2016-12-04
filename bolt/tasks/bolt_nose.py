@@ -24,11 +24,19 @@ import logging
 import os.path
 import subprocess as sp
 
+import bolt.errors as bterror
 import bolt.utils as utilities
 
 
 DEFAULT_DIR = './'
 DEFAULT_ARGUMENTS = [DEFAULT_DIR]
+
+
+class NoseError(bterror.TaskError):
+
+    def __init__(self, nose_code):
+        msg = "nose exited with code {code}".format(code=nose_code)
+        super(NoseError, self).__init__(msg)
 
 
 class _NoseArgumentGenerator(utilities.ArgumentsGenerator):
@@ -55,10 +63,13 @@ class ExecuteNoseTask(object):
         self.args = generator.generate_from(config)
         logging.debug('Arguments: ' + repr(self.args))
         self._execute_nose()
-        return self.result
+
 
     def _execute_nose(self):
-        self.result = sp.call(self.args)
+        result = sp.call(self.args)
+        if result != 0:
+            raise NoseError(result)
+
 
 
 

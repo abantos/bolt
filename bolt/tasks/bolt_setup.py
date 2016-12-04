@@ -51,7 +51,6 @@ class ExecuteSetupTask(object):
         generator = _SetupArgumentGenerator()
         self.args = generator.generate_from(config)
         self._execute_setup()
-        return 0
 
 
     def _execute_setup(self):

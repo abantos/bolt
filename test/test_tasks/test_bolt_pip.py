@@ -24,10 +24,11 @@ class TestExecutePipTask(unittest.TestCase):
         self.given(config)
         self.expect(['install', 'apackage'])
 
-    def test_returns_error_value_if_pip_raises_system_exit(self):
+    def test_raises_exception_if_pip_raises_system_exit(self):
         self.subject.raise_system_exit = True
-        self.given({})
-        self.assertEqual(self.result, 1)
+        with self.assertRaises(bpip.PipError):
+            self.given({})
+        #self.assertEqual(self.result, 1)
 
 
     def test_returns_zero_if_success(self):
