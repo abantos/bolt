@@ -22,7 +22,7 @@ class TestTaskRegistry(unittest.TestCase):
         self.subject.register_task(task_name, task_list)
         actual_list = self.subject.get(task_name)
 
-        self.assertSequenceEqual(task_list, [])#actual_list)
+        self.assertSequenceEqual(task_list, actual_list)
 
 
     def test_fails_if_task_is_not_callable_or_list(self):
