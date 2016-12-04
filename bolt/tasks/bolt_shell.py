@@ -29,7 +29,14 @@ takes a few parameters::
 import logging
 import subprocess as sp
 
-from bolt._bterror import InvalidConfigurationError
+import bolt.errors as bterror
+from bolt.errors import InvalidConfigurationError
+
+class ShellError(bterror.TaskError):
+
+    def __init__(self, shell_code):
+        msg = "shell command exited with code {code}".format(code=shell_code)
+        super(ShellError, self).__init__(msg)
 
 
 class ShellExecuteTask(object):
@@ -38,7 +45,7 @@ class ShellExecuteTask(object):
         self.config = kwargs.get('config')
         self._verify_valid_configuration()
         self._build_command_line()
-        return self._run()
+        self._run()
 
 
     def _verify_valid_configuration(self):
@@ -58,7 +65,10 @@ class ShellExecuteTask(object):
 
     def _run(self):
         logging.debug('Shell command line: ', repr(self.command_line))
-        return sp.call(self.command_line)
+        result = sp.call(self.command_line)
+        if result != 0:
+            raise ShellError(result)
+
         
 
 

@@ -66,8 +66,7 @@ class BoltApplication(object):
             self._config_manager = self._get_default_config_manager()
         runner = btrunner.TaskRunner(self.config_manager, self.registry, continue_on_error)
         try:
-            runner.build(task_name)
-            runner.run()
+            runner.run(task_name)
         finally:
             runner.tear_down()
 

@@ -39,11 +39,18 @@ case of flags. The following shows a more advance use of this task. ::
 """
 import logging
 import pip
+import bolt.errors as bterrors
 import bolt.utils as utilities
 
 DEFAULT_COMMAND = 'install'
 DEFAULT_REQUIREMENTS_FILE = 'requirements.txt'
 DEFAULT_ARGUMENTS = [DEFAULT_COMMAND, '-r', DEFAULT_REQUIREMENTS_FILE]
+
+class PipError(bterrors.TaskError):
+
+    def __init__(self, pip_code):
+        msg = "pip exited with code: {code}".format(code=pip_code)
+        super(PipError, self).__init__(msg)
 
 class _PipArgumentGenerator(utilities.CommonCommandAndArgumentsGenerator):
 
@@ -78,7 +85,7 @@ class ExecutePipTask(object):
         try:
             self._execute_pip()
         except SystemExit as exc:
-            return exc.code
+            raise PipError(exc.code)
         return 0
 
 

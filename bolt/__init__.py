@@ -5,7 +5,6 @@ import logging
 import sys
 
 import bolt._btapp as btapp
-from bolt._bterror import *
 import bolt._btoptions as btoptions
 import bolt.utils.log as btlog
 
@@ -34,17 +33,10 @@ def run():
     """
     Entry point for the `bolt` executable.
     """
-    # Uncomment to attach debugger.
-    # i = input('Press enter to continue')
-    try:
-        options = btoptions.Options()
-        btlog.initialize_logging(options.log_level, options.log_file)
-        app = btapp.get_application()
-        app.run()
-    except Exception as e:
-        logging.exception(e)
-        sys.exit(1)
-    sys.exit(0)
+    options = btoptions.Options()
+    btlog.initialize_logging(options.log_level, options.log_file)
+    app = btapp.get_application()
+    app.run()
 
     
 
