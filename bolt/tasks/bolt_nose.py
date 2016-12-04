@@ -64,6 +64,4 @@ class ExecuteNoseTask(object):
 
 def register_tasks(registry):
     registry.register_task('nose', ExecuteNoseTask())
-    logging.debug('nose task registered.')
-
 

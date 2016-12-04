@@ -13,12 +13,14 @@ command, and it command arguments. The following example shows how to
 configure the task. ::
 
     config = {
-        'script': 'special_setup.py',
-        'command': 'install',
-        'options': {
-            'verbose': True,
-            'dry-run': True
-        }
+		'setup':{
+			'script': 'special_setup.py',
+			'command': 'install',
+			'options': {
+				'verbose': True,
+				'dry-run': True
+			}
+		}
     }
 """
 import distutils.core as dcore
@@ -59,4 +61,3 @@ class ExecuteSetupTask(object):
 
 def register_tasks(registry):
     registry.register_task('setup', ExecuteSetupTask())
-    logging.debug('setup task registered.')

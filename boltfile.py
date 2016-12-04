@@ -65,7 +65,7 @@ bolt.register_task('ct', ['conttest'])
 bolt.register_task('pack', ['setup', 'setup.egg-info'])
 
 # CI/CD tasks
-bolt.register_task('run-unit-tests', ['mkdir', 'nose.ci'])
+bolt.register_task('run-unit-tests', ['clear-pyc', 'mkdir', 'nose.ci'])
 
 # Default task (not final).
 bolt.register_task('default', ['pip', 'ut'])

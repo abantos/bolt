@@ -98,10 +98,7 @@ class DeletePycTask(DeleteFilesTask):
 
 
 
-
 def register_tasks(registry):
     registry.register_task('delete-files', DeleteFilesTask())
-    logging.debug('delete-files task registered.')
-    registry.register_task('delete-pyc', DeletePycTask())
-    logging.debug('delete-pyc task registered.')
+    registry.register_task('delete-pyc', DeletePycTask())   
 

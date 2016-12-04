@@ -64,4 +64,3 @@ class ShellExecuteTask(object):
 
 def register_tasks(registry):
     registry.register_task('shell', ShellExecuteTask())
-    logging.debug('shell task registered')

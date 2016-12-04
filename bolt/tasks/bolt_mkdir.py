@@ -32,5 +32,4 @@ class ExecuteMKDir(object):
 
 def register_tasks(registry):
     registry.register_task('mkdir', ExecuteMKDir())
-    logging.debug('mkdir task registered.')
     
