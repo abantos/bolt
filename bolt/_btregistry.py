@@ -1,6 +1,7 @@
 """
-
 """
+import logging
+
 from bolt._bterror import InvalidTaskError
 
 class TaskRegistry(object):
@@ -20,6 +21,14 @@ class TaskRegistry(object):
         if not self._is_valid_task(task):
             raise InvalidTaskError()
         self._tasks[name] = task
+        msg = '{task_name} task is registered.'.format(task_name=name)
+        logging.debug(msg)
+
+
+    def register_module_tasks(self, module):
+        """
+        """
+        module.register_tasks(self)
 
 
     def get(self, name):
@@ -43,5 +52,10 @@ class TaskRegistry(object):
 
     def _extract_task_name(self, full_task):
         return full_task.split('.')[0]
+
+
+
+
+
 
 

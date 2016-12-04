@@ -45,4 +45,3 @@ class ExecuteConttest(object):
 
 def register_tasks(registry):
     registry.register_task('conttest', ExecuteConttest())
-    logging.debug('conttest task registered.')

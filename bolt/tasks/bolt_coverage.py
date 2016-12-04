@@ -44,4 +44,4 @@ class ExecuteCoverage(object):
 
 def register_tasks(registry):
     registry.register_task('coverage', ExecuteCoverage())
-    logging.debug('coverage task registered.')
+    

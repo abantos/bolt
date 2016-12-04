@@ -90,5 +90,4 @@ class ExecutePipTask(object):
 
 def register_tasks(registry):
     registry.register_task('pip', ExecutePipTask())
-    logging.debug('pip task registered.')
     
