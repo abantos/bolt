@@ -11,7 +11,7 @@ install:
 - python setup.py develop
 script:
 - bolt run-unit-tests
-- make -C docs html
+- if [[ $TRAVIS_PYTHON_VERSION != '3.3' ]]; then make -C docs html; fi
 
 deploy:
   provider: pypi
