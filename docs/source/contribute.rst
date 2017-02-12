@@ -1,5 +1,5 @@
 ################################################################################
-Bolt's Developer's Guide
+Contributing to Bolt
 ################################################################################
 
-..  todo:: Write the Developer's Guide
+..  todo:: Write contribute topic.
