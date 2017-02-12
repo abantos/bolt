@@ -1,46 +1,87 @@
 ################################################################################
-Bolt: The Python Task Runner
+What's Bolt?
 ################################################################################
 
-Bolt is a |python|_ task runner inspired by |grunt|_ in the JavaScript world.
-Bolt is design to simplify task automation and provides a flexible and extensible
-interface adaptable to your project needs.
+Bolt is a task runner inspired by |grunt|_ and written in |python|_ that helps
+you automate any task in your project whether it is executed in your 
+development environment or in your CI/CD pipeline. Bolt gives you the power
+to specify how tasks should be executed, and it takes care of the rest. And it
+is a simple as describing and configuring your tasks in the ``boltfile.py``.
+
+..  code-block:: python
+
+    # boltfile.py
+
+    import bolt 
+
+    config = {
+        'pip': {
+            'command': 'install',
+            'options': {
+                'r': './requirements.txt'
+            }
+        },
+        'delete-pyc': {
+            'sourcedir': './src',
+            'recursive': True
+        },
+        'nose': {
+            'directory': './tests',
+            'options': {
+                'with-xunit': True,
+                'xunit-file': './logs/unit_test_log.xml'
+            }
+        }
+    }
+
+    bolt.register_task('run-tests', ['pip', 'delete-pyc', 'nose'])
+
+..  code-block:: powershell
+
+    # in your favorite shell 
+
+    bolt pip 
+    # to install requirements
+
+    bolt nose 
+    # executes unit tests 
+
+    bolt run-tests 
+    # installs requirements, deletes .pyc files, and runs unit tests 
+    
 
 
 Why Use Bolt?
-=============
+================================================================================
 
-If you are like me and dislike JavaScript as much as I do, Bolt is a breath of
-fresh air. Bolt is written and can be extended using |python|_, which makes it
-more readable and intuitive to use. Don't get me wrong, |grunt|_ is a great tool
-that inspired me to create Bolt, but I cannot get over the ugly JavaScript syntax.
-Please, don't hate me for it.
-
-
-How Can I Get Started Using Bolt?
-=================================
-
-The best way to get started using Bolt is to go over the :doc:`User's Guide <ug/users_guide>`,
-which provides information about installing bolt, creating a bolt configuration
-file, and out-of-the-box provided tasks.
+Let's face it, you want to automate everything, but doing so becomes a burden; 
+especially, if you are working on a cross-platform application. You may find 
+your-self switching CI/CD systems and going through the pain of
+rewriting your pipelines to the specific domain languages they use. |python|_ 
+is cross-platform and any pipline will allow you to execute a command. This
+makes Bolt ideal to create reusable tasks that can execute in any environment
+indpendently of tools. And, It's fun!
 
 
-How Can I Extend Bolt With My Own Tasks?
-========================================
 
-Now that you are a Bolt power-user, and you are leveraging Bolt's out-of-the-box
-functionality, plus some 3rd-party extensions, you are ready to create your own
-tasks. The :doc:`Reference Guide <rg/reference_guide>` gives a good explanation 
-on how to provide additional tasks for Bolt and documents the Bolt API.
+How Can I Get Started?
+================================================================================
+
+You can start by installing bolt and following the examples in the 
+:doc:`Getting Started <using/getting_started>` guide. Once you become familiar 
+with Bolt, you can look at other topics in :doc:`Using Bolt <using_bolt>`,
+to learn about the different features it provides.
 
 
-How Can I Contribute to Bolt?
-=============================
+This is Great! I want to Help!
+================================================================================
 
-You've mastered Bolt's capabilities and want to give back to the community. That's 
-great! Check out the :doc:`Developer's Guide <dg/developers_guide>` for instructions
-on how to contribute to the project, and visit our |repo|_ to fork or clone the
-project.
+Help is highly appreciated! If you want to contribute to the project, make sure
+to read our :doc:`guidelines <contribute>`. If you are a tool 
+developer, and you want to provide Bolt support in your library or application 
+don't hesitate asking for help. We want to build a great community around Bolt, 
+and we will help you in any way we can.
+
 
 
 Table of Contents
@@ -49,7 +90,6 @@ Table of Contents
 ..  toctree::
     :maxdepth: 2
 
-    ug/users_guide
-    dg/developers_guide
-    rg/reference_guide
+    using_bolt
+    contribute
     todo_list
