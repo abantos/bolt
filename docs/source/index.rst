@@ -83,12 +83,8 @@ don't hesitate asking for help. We want to build a great community around Bolt,
 and we will help you in any way we can.
 
 
-
-Table of Contents
-=================
-
 ..  toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     using_bolt
     contribute

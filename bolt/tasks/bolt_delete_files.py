@@ -1,4 +1,6 @@
 """
+.. _task-delete-files:
+
 delete-files
 ------------
 
@@ -30,6 +32,8 @@ option is required.
 The ``recursive`` option indicates if sub-directories should be searched for
 matches. This option is optional and has a value of ``False`` by default.
 
+
+.. _task-delete-pyc:
 
 delete-pyc
 ----------
