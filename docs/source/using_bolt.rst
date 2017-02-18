@@ -2,18 +2,17 @@
 Using Bolt
 ################################################################################
 
-You've decided to use Bolt in your project (or maybe just try it out to see 
-what it can do for you). Great! This is a great place to start. This section
-will show you how to get started with Bolt and what it can do for you.
+You want to try Bolt? That's great! You can start by installing Bolt and
+creating your first `boltfile.py`. You can find how to do it in the 
+:doc:`Getting Started <using/getting_started>` guide. Then, you can check the 
+other topics in this section to learn more about Bolt, its features, and how to 
+create your own tasks.
 
-The following sections will drive you through the process of installing Bolt,
-setup your first bolt task file, and start running automated tasks with Bolt.
-They will show you how to use some of the tasks that are provided with Bolt,
-and how to customize their execution. The :doc:`Getting Started <using/getting_started>`
-section is a good start; then, you can dive into more advance topics.
 
 ..  toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     using/getting_started
+    using/disecting_boltfile
     using/provided_tasks
+    using/custom_tasks

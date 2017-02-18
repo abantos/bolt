@@ -1,108 +1,260 @@
 ################################################################################
-Getting Started with Bolt
+Getting Started
 ################################################################################
 
-This section covers the basic topics to start using Bolt in your projects, from
-the installation of Bolt, to creating your first bolt file, to configuring and
-executing tasks using bolt.
+In this section, we will take a look at some of the basics by installing Bolt
+and creating an initial ``boltfile.py`` to learn the main concepts.
 
 
 Installing Bolt
-===============
+================================================================================
 
-Unfortunately, I have not completed the work to publish Bolt and deliver it 
-through ``pip``. This work should be completed soon, and then you can use that
-mechanism to install it. For now, you can get the source from the |repo|_.
+Bolt can be installed directly from PyPi using pip.
 
-..  todo:: Complete the Installing Bolt section once we have pip integration.
+..  code-block:: powershell
 
-
-Your First Bolt File (boltfile.py)
-==================================
-
-The bolt file is the basic element, other than bolt it-self, in any project
-that intends to use Bolt. Bolt uses the file to configure and execute the 
-defined automated tasks, and every aspect of the execution is provided in the
-bolt file. The bolt file is nothing but a python script that uses some
-conventions and provided functions to indicate how the automated tasks should
-be executed.
-
-By default, bolt will look for a `boltfile.py` file in the current working
-directory and will use that file to execute the tasks. A different bolt file
-can be used by specifying it as a command line argument (using the ``--bolt-file`` 
-switch).
-
-The bolt file is a python script that it is divided into three different sections.
-The first one is the configuration section where a configuration is provided that
-defines the parameters used with tasks. The second section is used to register
-3rd-party or self-provided tasks. Finally, the third section will describe the
-steps for each of the tasks that will be used by the project.
-
-Bolt does not enforce the order of this tasks, but the bolt file is a python
-script that will be executed with your |python|_ interpreter; therefore, it
-must adhere to the |python|_ language, which requires things to be defined
-before they can be invoke. You should followw the guidelines describe here
-and structure your bolt files following those guidelines.
-
-To illustrate the different sections and how they are used, we will start by
-automating the task of clearing all the generated compiled python modules
-from our project. As you know, python compile modules are generated as our
-program is executed (``.pyc`` files), but in a developmenet environment, these
-file may create some conflicts and cause unexpected behavior if we rename or
-move modules, and we do not perform a clean-up. The task will automate this
-process.
-
-Start by creating a ``boltfile.py`` at the root of your project. We will use
-this file to illustrate how Bolt is used.
+    pip install bolt-ta
 
 
-Configuing Bolt Tasks
----------------------
 
-The first element in the bolt file should be the configuration section. This
-section is nothing but a python dictionary named ``config`` that includes the
-configuration parameters to the tasks we intend to use with bolt. In the
-file you created in the previous section (your ``boltfile.py``), add a ``config``
-variable and set it to an empty dictionary. ::
+Your First Bolt File
+================================================================================
 
-    config = {}
+A Bolt file (``boltfile.py``) is just a |python|_ script that defines the tasks
+available and the configuration for each of those tasks. Once we have a Bolt 
+file for our project, we can run the available tasks at any time. In this 
+section, we will learn the basics of the Bolt file by creating one that defines
+a very common scenario: First, it will run a task to install any missing 
+requirements for the application (basically a ``pip install``). Then, it will 
+clean all the ``.pyc`` files out of the source tree to insure a clean state. 
+After that, it will execute all the unit tests. And finally, we will add a
+greeting message at the begining of our tasks just to demonstrate how to create
+a simple custom task.
 
-..  note::
+Let's begin by looking at the structure for a our sample python project. The 
+following shows the contents of the root directory (simplified for clarity):
 
-    The ``config`` variable is required since the Bolt application will
-    try to read it; therefore, the variable must be declared even if we do
-    not intend to configure our tasks. Bolt also expects it to be a dictionary,
-    so you should declare it as an empty dictionary if you do not intend to
-    use it.
+..  code-block:: powershell
 
-Bolt provides a task that allows to delete ``.pyc`` files in a project. The
-task gives a lot of flexibility as which files should be deleted, but for this
-example, we will configure the task to search the entire project tree recursively
-and delete all the ``.pyc`` files that it finds. Modify the previously defined
-``config`` dictionary to include the ``delete-pyc`` task and its configuration
-parameters as shown here::
+    - project-root 
+        |- source
+        |- tests
+        |- requirements.txt
+        |- boltfile.py
 
-        config = {
-            "delete-pyc": {
-                "sourcedir": "./",
-                "recursive": True
+
+Installing Requirements
+-----------------------
+
+We will start by creating a ``boltfile.py`` file at the root of our project as
+shown in the structure above. Once the file is created, we will create a 
+configuration object inside the file to point to our requirements file, which 
+contains the requirements of our application. The initial contents of 
+``boltfile.py`` look like the following:
+
+..  code-block:: python
+
+    import bolt
+
+    config = {
+        'pip': {
+            'command': 'install',
+            'options': {
+                'r': 'requirements.txt'
             }
         }
+    }
 
-The contents of the configuration should be self-explanatory, but let's take a
-look at what each of the items and their rational.
 
-The first thing we see is another dictionary declared underneath the main ``config``
-dictionary with a key of ``"delete-pyc"``. The ``"delete-pyc"`` string is the
-unique identifier of the provided task that deletes the ``.pyc`` files. What we
-are saying in the example is used the following parameters specified in this
-dictionary to customize the ``delete-pyc`` task.
+You can now run ``bolt pip`` from the command line and see how the specified
+requirements are installed. In my example, the ``requirements.txt`` file only
+lists the ``requests`` module:
 
-The parameters to the task are task specific. Each task defines its own supported
-parameters, their meaning, and how they should be defined and used. In our case,
-we are providing a ``sourcedir`` of the current working directory, and we are
-stating that we want to delete ``.pyc`` files recursively.
+..  code-block:: shell
 
-..  todo::  Include links to more advance configuration topics.
+    (btsample) D:\Projects\Playground\bolt-sample> bolt pip
+    INFO - Executing Python Package Installer
+    Collecting requests (from -r requirements.txt (line 1))
+    Using cached requests-2.13.0-py2.py3-none-any.whl
+    Installing collected packages: requests
+    Successfully installed requests-2.13.0
+    (btsample) D:\Projects\Playground\bolt-sample>
 
- 
+
+Let's go over the example to understand what's going on. When bolt is executed 
+in a directory containing a ``boltfile.py``, the file is loaded as any other
+python module. Bolt requires the ``boltfile.py`` to define a ``config`` variable
+that is set to a configuration object, which is nothing but a |python|_ 
+dictionary. The root keys in the dictionary (in our case ``pip``) are the id of 
+the tasks we want to configure. Turns out Bolt provides a set of out-of-the-box
+tasks that can be used without any further process, and one of them is ``pip``.
+
+The ``pip`` task requires to specify a command to execute. In our sample we use 
+the ``install`` command, but you can use any command supported by the actual 
+``pip`` package Installer. The ``install`` allows to specify a requirements 
+file. In our example, we set the ``r`` option to the file containing the
+requirements (``requirements.txt``). If you think about it, all we are doing 
+is invoking ``pip install -r requirements.txt``, which is what you will 
+normally use from the command line, but Bolt is taking care of invoking the 
+command for us (see :ref:`pip task documentation <task-pip>`
+for more information about how to use the task).
+
+Because the ``pip`` task is provided out-of-the-box, we do not need to register
+it with Bolt, so we can just execute it from the command line by invoking
+``bolt pip``.
+
+
+Cleaining PYCs and Executing Unit Tests 
+---------------------------------------
+
+Before we run our unit tests, we want to clear any ``.pyc`` files that have been
+generated from a previous run. Bolt provies a task (``delete-pyc``) to do just
+that and it can be configured as follows:
+
+..  code-block:: python
+
+    import bolt
+
+    config = {
+        'pip': {
+            'command': 'install',
+            'options': {
+                'r': 'requirements.txt'
+            }
+        },
+        'delete-pyc': {
+            'sourcedir': './source',
+            'recursive': True
+        }
+    }
+
+
+As you can see, the configuration of the ``delete-pyc`` task is self-explanatory.
+The task will search the ``sourcedir`` specified for ``.pyc`` files and it 
+will delete them. Because we specified the ``recursive`` option, it will also 
+search the entire directory tree under ``source`` and delete all the matches
+(for more information see the :ref:`delete-pyc task documentation <task-delete-pyc>` ).
+
+
+Let's not stop there! We don't want to just delete the ``.pyc`` files, we also
+want to execute the unit tests. In my example, I use ``nose`` as the test 
+runner since Bolt already provides a task for that. Let's take a look at the 
+updated ``boltfile.py``:
+
+..  code-block:: python
+
+    import bolt
+
+    config = {
+        'pip': {
+            'command': 'install',
+            'options': {
+                'r': 'requirements.txt'
+            }
+        },
+        'delete-pyc': {
+            'sourcedir': './source',
+            'recursive': True
+        },
+        'nose': {
+            'directory': 'tests'
+        }
+    }
+
+    bolt.register_task('run-tests', ['pip', 'delete-pyc', 'nose'])
+
+
+We added nose to the configuration, which just uses a ``directory`` parameter 
+that points to the location of the tests (see the :ref:`nose task documentation <task-nose>` 
+for more information). But, we also added the following line
+at the end: ``bolt.register_task('run-tests', ['pip', 'delete-pyc', 'nose'])``.
+Let's take a look at what that does.
+
+The ``run-tests`` task, which we are defining, is composed of the three 
+other tasks that we have configured. These tasks will be executed sequentially
+when the ``run-tests`` task is invoked by invoking Bolt as ``bolt run-tests``.
+We can additionally run ``bolt delete-pyc`` to just delete the ``.pyc`` files, 
+run ``bolt nose`` to just run the unit tests, and of course ``bolt pip`` as we 
+saw before.
+
+Bolt will take care of executing the task you provide and insuring the correct
+configuration is passed to the task. It will also handle and report errors
+and stop execution if there are any problems, so the problems can be fixed.
+
+
+Display a Greeting When Bolt Runs
+---------------------------------
+
+Bolt provides a set of tasks that can be used as soon as you install it, but 
+it also allows you to add other tasks that are specific to your project.
+Furthermore, tool makers can provide their own tasks to integrate Bolt with 
+their applications and libraries. To demonstrate how easy is to create a Bolt 
+task, we will provide one that displays a greeting at the begining of the 
+``run-tests`` task. Let's take a look at the implementation, and then, we'll 
+discuss it.
+
+..  code-block:: python
+
+    import bolt
+
+    config = {
+        'pip': {
+            'command': 'install',
+            'options': {
+                'r': 'requirements.txt'
+            }
+        },
+        'delete-pyc': {
+            'sourcedir': './source',
+            'recursive': True
+        },
+        'nose': {
+            'directory': 'tests'
+        },
+        'greet': {
+            'message': 'Welcome to Bolt!'
+        }
+    }
+
+
+    def greet_task(**kwargs):
+        config = kwargs.get('config')
+        message = config.get('message')
+        print(message)
+
+
+    bolt.register_task('greet', greet_task)
+    bolt.register_task('run-tests', ['greet', 'pip', 'delete-pyc', 'nose'])
+
+
+We first added a configuration key ``greet`` for our task. This is the id we 
+chose for the task, and we will also use it to register it with Bolt. The 
+configuration takes a ``message`` option, which value is the message we want to 
+display. 
+
+Then we added a new function ``greet_task``, which is the callable object that 
+Bolt will call when the task is invoked. The funtion receives a keyword 
+arguments object, which contains a ``config``, which value is the configuration
+we defined. The function retrieves the configuration and reads the message from
+it in order to display it. Notice that the value of the ``config`` keyword 
+argument is not the entire configuration; it just contains the parameters
+related to our task, in other words the value is:
+
+..  code-block:: python 
+
+    {
+        'message': 'Welcome to Bolt!'
+    }
+
+Once we have the function and its configuration, we register it by calling
+``bolt.register_task('greet', greet_task)`` where the first parameter is the id 
+of our task, which we also used for the configuration, and the second parameter 
+is the callable we want to execute, in our case the function ``greet_task``. 
+Finally, we put our greet task at the beginning of ``run-tests`` and we will 
+see the message when we execute it.
+
+That's it! You can run ``bolt greet`` to just see the message, or you can 
+execute ``bolt run-tests`` and see the message followed by the other tasks.
+
+
+
