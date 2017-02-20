@@ -10,6 +10,7 @@ class TaskRunner(object):
         self._config = config
         self._registry = registry
         self._continue_on_error = continue_on_error
+        self._context = {}
         self._script = None
         self._executed_operations = None
 
@@ -53,5 +54,5 @@ class TaskRunner(object):
 
     def _run_task(self, task):
         operation, config = task
-        result = operation(config=config)
+        result = operation(config=config, context=self._context)
         self._executed_operations.append(operation)

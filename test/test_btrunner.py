@@ -100,6 +100,11 @@ class TestTaskRunner(unittest.TestCase):
             self.assertFalse(self.tear_down_task.tear_down_called)
 
 
+    def test_uses_same_execution_context_with_all_tasks(self):
+        self.given('multi_task')
+        self.assertTrue(self.context_shared)
+
+
 
     def given(self, task_name):
         try:
@@ -112,12 +117,17 @@ class TestTaskRunner(unittest.TestCase):
         self.assertIn(task_name, self.executed_tasks)
 
 
-    def task_1_callback(self, config):
+    def task_1_callback(self, **kwargs):
+        context = kwargs.get('context')
+        context['shared-property'] = 1
         self.executed_tasks.append('task_1')
 
 
     def task_2_callback(self, **kwargs):
         config = kwargs.get('config')
+        context = kwargs.get('context')
+        if context.get('shared-property') == 1:
+            self.context_shared = True
         self.executed_tasks.append('task_2')
 
 
@@ -125,13 +135,14 @@ class TestTaskRunner(unittest.TestCase):
         pass
 
 
-    def configurable_task(self, config):
+    def configurable_task(self, **kwargs):
+        config = kwargs.get('config')
         param = config.get('param')
         self.assertEqual(param, 'value')
         self.executed_tasks.append('configurable')
 
 
-    def failing_task(self, config):
+    def failing_task(self, **kwargs):
         raise bterror.TaskError()
 
 
