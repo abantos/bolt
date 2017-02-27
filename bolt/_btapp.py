@@ -18,6 +18,7 @@ import bolt.tasks.bolt_conttest as bolt_conttest
 import bolt.tasks.bolt_nose as bolt_nose
 import bolt.tasks.bolt_mkdir as bolt_mkdir 
 import bolt.tasks.bolt_coverage as bolt_coverage
+import bolt.tasks.bolt_sleep as bolt_sleep
 
 
 class BoltApplication(object):
@@ -93,6 +94,7 @@ class BoltApplication(object):
         self.registry.register_module_tasks(bolt_pip)
         self.registry.register_module_tasks(bolt_setup)
         self.registry.register_module_tasks(bolt_shell)
+        self.registry.register_module_tasks(bolt_sleep)
 
 
     def _register_module(self, module):

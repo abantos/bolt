@@ -99,6 +99,7 @@ class TestBoltApplication(unittest.TestCase):
         self.assert_registered('pip')
         self.assert_registered('setup')
         self.assert_registered('shell')
+        self.assert_registered('sleep')
 
 
     def setup_tasks(self):
