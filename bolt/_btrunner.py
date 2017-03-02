@@ -44,12 +44,17 @@ class TaskRunner(object):
 
 
     def _try_run_task(self, task):
+        if self._continue_on_error:
+            self._run_task_protected(task)
+        else:
+            self._run_task(task)
+
+
+    def _run_task_protected(self, task):
         try:
             self._run_task(task)
         except Exception as ex:
-            logging.error(ex)
-            if not self._continue_on_error:
-                raise ex
+            logging.exception(ex)
 
 
     def _run_task(self, task):
