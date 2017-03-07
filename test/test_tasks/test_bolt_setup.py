@@ -7,7 +7,7 @@ import _mocks as mck
 class TestExecuteSetupTask(unittest.TestCase):
 
     def setUp(self):
-        self. subject = ExecuteSetupTaskSpy()
+        self.subject = ExecuteSetupTaskSpy()
         return super(TestExecuteSetupTask, self).setUp()
 
 
@@ -25,6 +25,12 @@ class TestExecuteSetupTask(unittest.TestCase):
         self.assertEqual(self.subject.setup_script, script)
 
 
+    def test_raises_exception_if_building_setup_fails(self):
+        self.subject.dist_files = []
+        with self.assertRaises(bsetup.BuildSetupError):
+            self.given({})
+
+
     def given(self, config):
         self.subject(config=config)
 
@@ -36,9 +42,13 @@ class TestExecuteSetupTask(unittest.TestCase):
 
 
 class ExecuteSetupTaskSpy(bsetup.ExecuteSetupTask):
+
+    def __init__(self):
+        super(ExecuteSetupTaskSpy, self).__init__()
+        self.dist_files = [('bdist_wheel', '3.5', '/some/colation/the.whl')]
     
     def _execute_setup(self):
-        pass
+        return self
 
 
 

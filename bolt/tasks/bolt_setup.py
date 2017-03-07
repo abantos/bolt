@@ -26,7 +26,11 @@ configure the task. ::
 import distutils.core as dcore
 import logging
 
+import bolt.errors as errors
 import bolt.utils as utilities
+
+
+class BuildSetupError(errors.TaskError): pass
 
 DEFAULT_ARGUMENTS = ['build']
 DEFAULT_SETUP_SCRIPT = 'setup.py'
@@ -50,11 +54,13 @@ class ExecuteSetupTask(object):
             self.setup_script = DEFAULT_SETUP_SCRIPT
         generator = _SetupArgumentGenerator()
         self.args = generator.generate_from(config)
-        self._execute_setup()
+        result = self._execute_setup()
+        if not result.dist_files:
+            raise BuildSetupError()
 
 
     def _execute_setup(self):
-        dcore.run_setup(self.setup_script, self.args)
+        return dcore.run_setup(self.setup_script, self.args)
 
 
 
