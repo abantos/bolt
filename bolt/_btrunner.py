@@ -1,6 +1,7 @@
 """
 """
 import logging
+import bolt.errors as bt_errors
 
 class TaskRunner(object):
     """
@@ -60,4 +61,10 @@ class TaskRunner(object):
     def _run_task(self, task):
         operation, config = task
         result = operation(config=config, context=self._context)
+        self._check_result(result)
         self._executed_operations.append(operation)
+
+
+    def _check_result(self, result):
+        if result:
+            raise bt_errors.TaskError()
