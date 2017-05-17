@@ -25,6 +25,7 @@ class TestTaskRunner(unittest.TestCase):
         self.registry.register_task('multi_task', ['task_1', 'task_2'])
         self.registry.register_task('configurable', self.configurable_task)
         self.registry.register_task('failing_task', self.failing_task)
+        self.registry.register_task('failing_task_throug_return_code', self.failing_task_with_error_code)
         self.registry.register_task('multi_task_with_failures', ['task_1', 'failing_task', 'task_2'])
         self.tear_down_task = TearDownTask()
         self.registry.register_task('has_tear_down', self.tear_down_task)
@@ -77,9 +78,15 @@ class TestTaskRunner(unittest.TestCase):
             self.subject.build('inexistent')
 
 
-    def test_exits_if_task_does_not_return_zero(self):
+    def test_exits_if_task_raises_exception(self):
         with self.assertRaises(bterror.TaskError):
             self.given('failing_task')
+
+
+    def test_exits_if_task_does_not_return_zero(self):
+        with self.assertRaises(bterror.TaskError):
+            self.given('failing_task_throug_return_code')
+
 
 
     def test_continues_on_error_if_specified(self):
@@ -144,6 +151,10 @@ class TestTaskRunner(unittest.TestCase):
 
     def failing_task(self, **kwargs):
         raise bterror.TaskError()
+
+
+    def failing_task_with_error_code(self, **kwargs):
+        return 1
 
 
 
