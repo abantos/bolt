@@ -30,7 +30,7 @@ import logging
 import subprocess as sp
 
 import bolt.errors as bterror
-from bolt.errors import InvalidConfigurationError
+from bolt.errors import InvalidConfigurationError, RequiredParameterMissingError
 
 class ShellError(bterror.TaskError):
 
@@ -53,7 +53,7 @@ class ShellExecuteTask(object):
             raise InvalidConfigurationError('A shell command is required')
         self.command = self.config.get('command')
         if not self.command:
-            raise InvalidConfigurationError('A command must be specified')
+            raise RequiredParameterMissingError('command')
 
 
     def _build_command_line(self):
