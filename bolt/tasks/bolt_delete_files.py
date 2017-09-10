@@ -76,10 +76,10 @@ class DeleteFilesTask(object):
             raise bterrors.InvalidConfigurationError('Configuration cannot be empty')
         self.sourcedir = config.get('sourcedir')
         if not self.sourcedir:
-            raise bterrors.InvalidConfigurationError('Source directory not specified')
+            raise bterrors.RequiredParameterMissingError('sourcedir')
         self.pattern = config.get('pattern')
         if not self.pattern:
-            raise bterrors.InvalidConfigurationError('File pattern not specified')
+            raise bterrors.RequiredParameterMissingError('pattern')
         self.recursive = config.get('recursive')
 
 
