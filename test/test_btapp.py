@@ -97,6 +97,7 @@ class TestBoltApplication(unittest.TestCase):
         self.assert_registered('mkdir')
         self.assert_registered('nose')
         self.assert_registered('pip')
+        self.assert_registered('set-vars')
         self.assert_registered('setup')
         self.assert_registered('shell')
         self.assert_registered('sleep')

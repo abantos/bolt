@@ -10,14 +10,15 @@ import bolt._btrunner as btrunner
 from bolt._btutils import load_script
 
 # Standard task modules.
-import bolt.tasks.bolt_pip as bolt_pip
+import bolt.tasks.bolt_conttest as bolt_conttest
+import bolt.tasks.bolt_coverage as bolt_coverage
 import bolt.tasks.bolt_delete_files as bolt_delete_files
+import bolt.tasks.bolt_mkdir as bolt_mkdir 
+import bolt.tasks.bolt_nose as bolt_nose
+import bolt.tasks.bolt_pip as bolt_pip
+import bolt.tasks.bolt_set_vars as bolt_set_vars
 import bolt.tasks.bolt_setup as bolt_setup
 import bolt.tasks.bolt_shell as bolt_shell
-import bolt.tasks.bolt_conttest as bolt_conttest
-import bolt.tasks.bolt_nose as bolt_nose
-import bolt.tasks.bolt_mkdir as bolt_mkdir 
-import bolt.tasks.bolt_coverage as bolt_coverage
 import bolt.tasks.bolt_sleep as bolt_sleep
 
 
@@ -92,6 +93,7 @@ class BoltApplication(object):
         self.registry.register_module_tasks(bolt_mkdir)
         self.registry.register_module_tasks(bolt_nose)
         self.registry.register_module_tasks(bolt_pip)
+        self.registry.register_module_tasks(bolt_set_vars)
         self.registry.register_module_tasks(bolt_setup)
         self.registry.register_module_tasks(bolt_shell)
         self.registry.register_module_tasks(bolt_sleep)

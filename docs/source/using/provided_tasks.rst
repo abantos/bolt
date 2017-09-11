@@ -26,6 +26,10 @@ The following documents the included tasks and how they work.
     :members:
 
 
+..  automodule:: bolt.tasks.bolt_set_vars
+    :members:
+
+
 ..  automodule:: bolt.tasks.bolt_setup
     :members:
 
