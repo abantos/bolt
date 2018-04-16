@@ -23,6 +23,7 @@ deploy:
     distributions: sdist bdist_wheel
     repo: abantos/bolt
     branch: master
+    condition: $TRAVIS_PYTHON_VERSION = '3.6'
 
 
 notifications:
