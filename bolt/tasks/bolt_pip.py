@@ -44,6 +44,14 @@ import pip
 import bolt.errors as bterrors
 import bolt.utils as utilities
 
+major, minor, build = pip.__version__.split('.')
+major = int(major)
+if major >= 10:
+    import pip._internal
+    pip_entry_point = pip._internal.main
+else:
+    pip_entry_point = pip.main
+
 DEFAULT_COMMAND = 'install'
 DEFAULT_REQUIREMENTS_FILE = 'requirements.txt'
 DEFAULT_ARGUMENTS = [DEFAULT_COMMAND, '-r', DEFAULT_REQUIREMENTS_FILE]
@@ -92,7 +100,7 @@ class ExecutePipTask(object):
 
 
     def _execute_pip(self):
-        pip.main(self.args)
+        pip_entry_point(self.args)
 
 
 
