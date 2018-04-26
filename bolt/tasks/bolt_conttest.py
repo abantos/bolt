@@ -39,7 +39,15 @@ class ExecuteConttest(object):
 
     def execute_task(self):
         import conttest.conttest as ct
-        ct.watch_dir(self.directory, lambda: bolt.run_task(self.task_name, self.continue_on_error), method=ct.TIMES)
+        try:
+            ct.watch_dir(self.directory, self._execute_assigned_task, method=ct.TIMES)
+        except KeyboardInterrupt:
+            logging.info('Exiting continuous execution')
+
+
+    def _execute_assigned_task(self):
+        bolt.run_task(self.task_name, self.continue_on_error)
+        logging.info('Press <ctrl+c> to exit')
 
 
 
