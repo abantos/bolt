@@ -18,9 +18,9 @@ deploy:
   user: IsaacRodriguez
   password:
     secure: PaNe/crtxj/trjh4cJEuK0FIO0bic2LFvRwKzTYIzXBGb/vgYJo+OsBBHXl7CGAufLPBgqe2+vf6fL9ltbKQE69tl2hSA5M0FhrazgowHKAfvIUI20EzqrvE/2VEyDEQt+6iVVUQmuZ97xyk+48AwI6oELRLSRe/Bl/KRVtGH4KaN93SMdyzy4oV4ykELt3EMN8jQWt8PpyvDq+GWAqFjEPWH0o/Mtm+rPcyj5h65NkyTcm6wiWhQil9SgPtnt2P5zj2ymQgIHBDWSC4rZkb5Z5jNSl3vCcI1RQ0WheIvfc4E+XWQP4myxmqOsC45v6xL4U15+CUXQsk38czizQhE+d1ZDd6yZNIA/UJu0V3hKo6X4mSu+Ag6i2cTwiWk47f4TTxaXHCU+hsxfExhVPfF5/kMMkPqScrq8ETt3Ki8aFqfTSW9UEiIG/r8XrP2ztKNWcUbtXWxxG7+RDRE3G6Wsrpkh8TQlm18cMzRAz8NJmSnLT4yxS5BF8XytEch4uYnxr4R1z6/Q7RxxdsEVNmHhRaNbBUd5KQi8jxocLjbDx21N7ilIqzW4HlwPPzVVDP6q6N1KEfW7WRTKf4oha+Ueo2uxVxPpPzDjdmXK1Ol8FQ7+tg8vHxUqP7M3yggxHO1L0snrbV58pIXbG8h7mtplF6RA5moCLo7ftTLP0thxY=
+  distributions: bdist_wheel
   on:
     tags: true
-    distributions: sdist bdist_wheel
     repo: abantos/bolt
     branch: master
     condition: $TRAVIS_PYTHON_VERSION = '3.6'
