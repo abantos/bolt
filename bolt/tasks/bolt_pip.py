@@ -44,7 +44,7 @@ import pip
 import bolt.errors as bterrors
 import bolt.utils as utilities
 
-major, minor, build = pip.__version__.split('.')
+major = pip.__version__.split('.')[0]
 major = int(major)
 if major >= 10:
     import pip._internal
