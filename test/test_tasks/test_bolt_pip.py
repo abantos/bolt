@@ -28,12 +28,7 @@ class TestExecutePipTask(unittest.TestCase):
         self.subject.raise_system_exit = True
         with self.assertRaises(bpip.PipError):
             self.given({})
-        #self.assertEqual(self.result, 1)
 
-
-    def test_returns_zero_if_success(self):
-        self.given({})
-        self.assertEqual(self.result, 0)
 
 
     def given(self, config):

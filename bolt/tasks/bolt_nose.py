@@ -34,18 +34,15 @@ DEFAULT_DIR = './'
 DEFAULT_ARGUMENTS = [DEFAULT_DIR]
 
 
-class ExecuteNoseTask(object):
+class ExecuteNoseTask(api.Task):
     
-    def __call__(self, **kwargs):
-        logging.info('Executing nose')
-        config = kwargs.get('config')
+    def _configure(self):
         generator = _NoseArgumentGenerator()
-        self.args = generator.generate_from(config)
+        self.args = generator.generate_from(self.config)
         logging.debug('Arguments: ' + repr(self.args))
-        self._execute_nose()
 
 
-    def _execute_nose(self):
+    def _execute(self):
         result = sp.call(self.args)
         if result != 0:
             raise NoseError(result)

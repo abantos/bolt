@@ -64,24 +64,16 @@ import os
 import bolt.api as api
 import bolt.utils as utilities
 
-class DeleteFilesTask(object):
+class DeleteFilesTask(api.Task):
 
-    def __call__(self, **kwargs):
-        self._set_valid_configuration(kwargs.get('config'))
-        self._execute_delete()
-
-
-    def _set_valid_configuration(self, config):
-        self.sourcedir = config.get('sourcedir')
-        if not self.sourcedir:
-            raise api.RequiredConfigurationError('sourcedir')
-        self.pattern = config.get('pattern')
-        if not self.pattern:
-            raise api.RequiredConfigurationError('pattern')
-        self.recursive = config.get('recursive')
+    def _configure(self):
+        self.sourcedir = self._require('sourcedir')
+        self.pattern = self._require('pattern')
+        self.recursive = self._optional('recursive')
+        
 
 
-    def _execute_delete(self):
+    def _execute(self):
         logging.info('Deleting {pat} from {srcdir}.'.format(pat=self.pattern, srcdir=self.sourcedir))
         finder = utilities.FileFinder(self.sourcedir, self.pattern, self.recursive)
         matches = finder.find()
@@ -91,11 +83,11 @@ class DeleteFilesTask(object):
 
 class DeletePycTask(DeleteFilesTask):
 
-    def __call__(self, **kwargs):
-        config = kwargs.get('config')
-        config['pattern'] = '*.pyc'
-        logging.debug('Delete pattern set to ' + config['pattern'])
-        return super(DeletePycTask, self).__call__(**kwargs)
+    def _configure(self):
+        self.config['pattern'] = '*.pyc'
+        logging.debug('Delete pattern set to ' + self.config['pattern'])
+        super(DeletePycTask, self)._configure()
+
 
 
 

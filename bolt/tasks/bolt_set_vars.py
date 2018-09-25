@@ -23,16 +23,12 @@ Numeric vars will be converted to their integer representation.
 """
 import os
 
-class SetVarsTask(object):
+import bolt.api as api
+
+class SetVarsTask(api.Task):
     
-    def __call__(self, **kwargs):
-        self.config = kwargs.get('config')
-        self._configure()
-        self._execute()
-
-
     def _configure(self):
-        self.vars = self.config.get('vars')
+        self.vars = self._require('vars')
 
 
     def _execute(self):

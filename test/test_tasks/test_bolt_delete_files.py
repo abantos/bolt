@@ -81,7 +81,7 @@ class DeleteFilesTaskSpy(df.DeleteFilesTask):
         return super(DeleteFilesTaskSpy, self).__init__()
 
 
-    def _execute_delete(self):
+    def _execute(self):
         self.executed = True
 
 

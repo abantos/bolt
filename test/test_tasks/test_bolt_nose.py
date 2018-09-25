@@ -82,7 +82,7 @@ class TestExecuteNoseTask(unittest.TestCase):
 
 class ExecuteNoseTaskSpy(bnose.ExecuteNoseTask):
     
-    def _execute_nose(self):
+    def _execute(self):
         self.result = 0
     
 

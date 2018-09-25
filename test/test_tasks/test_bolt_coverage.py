@@ -44,7 +44,7 @@ class TestExecuteCoverage(unittest.TestCase):
 
 class ExecuteCoverageSpy(cov.ExecuteCoverage):
     
-    def execute_with_coverage(self):
+    def _execute(self):
         pass
 
 
