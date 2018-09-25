@@ -1,7 +1,6 @@
 """
 This is the main module that exposes the required functions to use bolt in your applications.
 """
-import logging
 import sys
 
 import bolt._btapp as btapp

@@ -2,29 +2,8 @@
 This module defines exception classes used in the implementation of Bolt to
 report errors or as base classes to define other error conditions.
 """
-
-class BoltError(Exception):
-    """
-    Base class for all exceptons explicitely raised by Bolt.
-    """
-    def __init__(self, code=1):
-        self.code = code
-
-
-    def __str__(self):
-        return 'BoltError()'
-
-
-    def __repr__(self):
-        return self.__str__()
-
-
-
-class InvalidTaskError(BoltError):
-    """
-    TBD
-    """
-    pass
+print('WARNING!!! bolt.errors is deprecated. Use bolt.api for exceptions')
+from bolt.api import BoltError
 
 
 
@@ -33,7 +12,7 @@ class InvalidConfigurationError(BoltError):
     Base class for all task configuration errors.
     """
     
-    def __str__(self):
+    def __repr__(self):
         return 'InvalidConfigurationError()'
 
 
@@ -46,7 +25,7 @@ class ConfigurationParameterError(InvalidConfigurationError):
         self.parameter = param_name
 
 
-    def __str__(self):
+    def __repr__(self):
         return 'ConfigurationParameterError({pn})'.format(pn=repr(self.parameter))
 
 
@@ -58,7 +37,7 @@ class RequiredParameterMissingError(ConfigurationParameterError):
     configuration
     """
     
-    def __str__(self):
+    def __repr__(self):
         return 'RequiredParameterMissingError({pn})'.format(pn=repr(self.parameter))
 
 
@@ -73,7 +52,7 @@ class ConfigurationValueError(ConfigurationParameterError):
         self.value = value
 
 
-    def __str__(self):
+    def __repr__(self):
         fmt = 'ConfigurationValueError({pn}, {v})'
         return fmt.format(pn=repr(self.parameter), v=repr(self.value))
 
@@ -86,5 +65,5 @@ class TaskError(BoltError):
     execution of the task they are implementing.
     """
 
-    def __str__(self):
+    def __repr__(self):
         return 'TaskError()'

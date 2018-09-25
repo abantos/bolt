@@ -1,6 +1,5 @@
 """
 """
-import logging
 import os.path
 
 import bolt._btconfig as btconfig

@@ -1,7 +1,7 @@
 import unittest
 
+import bolt.api as api
 import bolt._btconfig as config
-import bolt.errors as bterror
 import bolt._btregistry as registry
 
 import bolt._btrunner as runner
@@ -79,12 +79,12 @@ class TestTaskRunner(unittest.TestCase):
 
 
     def test_exits_if_task_raises_exception(self):
-        with self.assertRaises(bterror.TaskError):
+        with self.assertRaises(api.TaskFailedError):
             self.given('failing_task')
 
 
     def test_exits_if_task_does_not_return_zero(self):
-        with self.assertRaises(bterror.TaskError):
+        with self.assertRaises(api.TaskFailedError):
             self.given('failing_task_throug_return_code')
 
 
@@ -102,7 +102,7 @@ class TestTaskRunner(unittest.TestCase):
 
 
     def test_does_not_call_teardown_if_script_fails_before_executing_task(self):
-        with self.assertRaises(bterror.TaskError):
+        with self.assertRaises(api.TaskFailedError):
             self.given('partially_executed')
             self.assertFalse(self.tear_down_task.tear_down_called)
 
@@ -150,7 +150,7 @@ class TestTaskRunner(unittest.TestCase):
 
 
     def failing_task(self, **kwargs):
-        raise bterror.TaskError()
+        raise api.TaskFailedError()
 
 
     def failing_task_with_error_code(self, **kwargs):

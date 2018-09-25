@@ -61,7 +61,7 @@ import glob
 import logging
 import os
 
-import bolt.errors as bterrors
+import bolt.api as api
 import bolt.utils as utilities
 
 class DeleteFilesTask(object):
@@ -72,14 +72,12 @@ class DeleteFilesTask(object):
 
 
     def _set_valid_configuration(self, config):
-        if not config:
-            raise bterrors.InvalidConfigurationError('Configuration cannot be empty')
         self.sourcedir = config.get('sourcedir')
         if not self.sourcedir:
-            raise bterrors.RequiredParameterMissingError('sourcedir')
+            raise api.RequiredConfigurationError('sourcedir')
         self.pattern = config.get('pattern')
         if not self.pattern:
-            raise bterrors.RequiredParameterMissingError('pattern')
+            raise api.RequiredConfigurationError('pattern')
         self.recursive = config.get('recursive')
 
 

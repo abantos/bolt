@@ -3,7 +3,7 @@ import os.path
 import unittest
 
 import bolt._btapp as btapp
-import bolt.errors as bterror
+import bolt.api as api
 import bolt._btregistry as btregistry
 
 
@@ -62,7 +62,7 @@ class TestBoltApplication(unittest.TestCase):
 
 
     def test_raises_system_exit_if_no_continue_on_error_set(self):
-        with self.assertRaises(bterror.TaskError):
+        with self.assertRaises(api.TaskFailedError):
             self.setup_tasks()
             self.application.run_task('continue')
             self.assertFalse(self.successful_task_executed)
@@ -78,7 +78,7 @@ class TestBoltApplication(unittest.TestCase):
         try:
             self.setup_tasks()
             self.application.run_task('insure_teardown')
-        except bterror.TaskError:
+        except api.TaskFailedError:
             self.assertTrue(self.tearable_task.tear_down_invoked)
 
 
@@ -124,7 +124,7 @@ class TestBoltApplication(unittest.TestCase):
 
 
     def failed_task(self, **kwargs):
-        raise bterror.TaskError()
+        raise api.TaskFailedError()
 
 
 

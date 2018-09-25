@@ -26,20 +26,11 @@ configure the task. ::
 import distutils.core as dcore
 import logging
 
-import bolt.errors as errors
+import bolt.api as api
 import bolt.utils as utilities
-
-
-class BuildSetupError(errors.TaskError): pass
 
 DEFAULT_ARGUMENTS = ['build']
 DEFAULT_SETUP_SCRIPT = 'setup.py'
-
-class _SetupArgumentGenerator(utilities.CommonCommandAndArgumentsGenerator):
-
-    def __init__(self):
-        return super(_SetupArgumentGenerator, self).__init__(DEFAULT_ARGUMENTS)
-
 
 
 class ExecuteSetupTask(object):
@@ -66,3 +57,17 @@ class ExecuteSetupTask(object):
 
 def register_tasks(registry):
     registry.register_task('setup', ExecuteSetupTask())
+
+
+
+class _SetupArgumentGenerator(utilities.CommonCommandAndArgumentsGenerator):
+
+    def __init__(self):
+        return super(_SetupArgumentGenerator, self).__init__(DEFAULT_ARGUMENTS)
+
+
+
+class BuildSetupError(api.TaskFailedError):
+
+    def __repr__(self):
+        return 'BuildSetupError({code})'.format(code=self.code)
