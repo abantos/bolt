@@ -3,6 +3,68 @@ import unittest
 import bolt.api as api
 
 
+class TestTask(unittest.TestCase):
+
+    def setUp(self):
+        self.config = {
+            'param': 'value'
+        }
+        self.task = TaskSpy()
+
+    def test_retrieves_config_attribute_on_call(self): 
+        self.invoke()
+        self.assertIs(self.task.config, self.config)
+
+
+    def test_delegates_configuration_to_derived_classes(self):
+        self.invoke()
+        self.assertTrue(self.task.configure_invoked)
+
+
+    def test_delegate_execution_to_derived_classes(self):
+        self.invoke()
+        self.assertTrue(self.task.execute_invoked)
+
+
+    def test_raises_if_required_parameter_is_missing_in_configuration(self):
+        with self.assertRaises(api.RequiredConfigurationError):
+            self.invoke({})
+
+
+    def test_sets_optional_to_default_value_if_not_specified_in_config(self):
+        self.invoke()
+        self.assertEqual(self.task.other, 3)
+
+
+    def test_sets_optional_to_none_if_not_specified_and_no_default_provided(self):
+        self.invoke()
+        self.assertIsNone(self.task.must_be_none)
+
+
+    def invoke(self, config=None):
+        config = config if config is not None else self.config
+        self.task(config=config)
+
+
+
+class TaskSpy(api.Task):
+    def __init__(self):
+        self.configure_invoked = False
+        self.execute_invoked = False
+
+
+    def _configure(self):
+        self.configure_invoked = True
+        self.param = self._require('param')
+        self.other = self._optional('other', 3)
+        self.must_be_none = self._optional('no-default')
+
+
+    def _execute(self):
+        self.execute_invoked = True
+
+
+
 class TestBoltError(unittest.TestCase):
 
     def setUp(self):

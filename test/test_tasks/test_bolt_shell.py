@@ -65,7 +65,7 @@ class ShellExecuteTaskSpy(bsh.ShellExecuteTask):
         self.returncode = 0
         return super(ShellExecuteTaskSpy, self).__init__()
 
-    def _run(self):
+    def _execute(self):
         self.args = self.command_line 
         if self.args[0] == 'failed':
             self.returncode = 1

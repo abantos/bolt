@@ -19,14 +19,17 @@ independent subprocess needs to be kept running in the background./
 import logging
 import time
 
+import bolt.api as api
 import bolt.utils as btutils
 
 
-class SleepTask(object):
+class SleepTask(api.Task):
 
-    def __call__(self, **kwargs):
-        self.config = kwargs.get('config')
-        self.duration = self.config.get('duration') or btutils.FOREVER
+    def _configure(self):
+        self.duration = self._optional('duration', btutils.FOREVER)
+
+
+    def _execute(self):
         if self.duration == btutils.FOREVER:
             self._sleep_forever()
         else:

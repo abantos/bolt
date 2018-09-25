@@ -2,6 +2,41 @@
 This module contains classes that can be used for the implementation of 
 bolt tasks.
 """
+import logging
+
+
+class Task(object):
+    """
+    """
+
+    def __call__(self, **kwargs):
+        self.config = kwargs.get('config')
+        self._configure()
+        self._execute()
+
+
+    def _configure(self):
+        """
+        """
+        logging.warning('Derived classes should implement _configure()')
+
+
+    def _execute(self):
+        """
+        """
+        logging.warning('Derived classes should implement _execute()')
+
+
+    def _require(self, key):
+        value = self.config.get(key)
+        if not value:
+            raise RequiredConfigurationError(key)
+        return value
+
+
+    def _optional(self, key, default=None):
+        return self.config.get(key, default)
+        
 
 
 class BoltError(Exception):

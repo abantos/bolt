@@ -32,33 +32,21 @@ import subprocess as sp
 import bolt.api as api
 
 
-class ShellExecuteTask(object):
+class ShellExecuteTask(api.Task):
     
-    def __call__(self, **kwargs):
-        self.config = kwargs.get('config')
-        self._verify_valid_configuration()
-        self._build_command_line()
-        self._run()
-
-
-    def _verify_valid_configuration(self):
-        self.command = self.config.get('command')
-        if not self.command:
-            raise api.RequiredConfigurationError('command')
-
-
-    def _build_command_line(self):
+    def _configure(self):
+        self.command = self._require('command')
         self.command_line = [self.command]
-        arguments = self.config.get('arguments')
-        if arguments:
-            self.command_line.extend(arguments)
+        arguments = self._optional('arguments', [])
+        self.command_line.extend(arguments)
 
 
-    def _run(self):
+    def _execute(self):
         logging.debug('Shell command line: ', repr(self.command_line))
         result = sp.call(self.command_line)
         if result != 0:
             raise ShellError(result)
+
 
         
 

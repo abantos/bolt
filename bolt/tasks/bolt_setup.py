@@ -33,21 +33,23 @@ DEFAULT_ARGUMENTS = ['build']
 DEFAULT_SETUP_SCRIPT = 'setup.py'
 
 
-class ExecuteSetupTask(object):
+class ExecuteSetupTask(api.Task):
     
-    def __call__(self, **kwargs):
-        logging.info('Executing Setup')
-        config = kwargs.get('config')
-        self.setup_script = config.get('script')
+    def _configure(self):
+        self.setup_script = self._optional('script')
         if self.setup_script:
-            config['script'] = False
+            self.config['script'] = False
         else:
             self.setup_script = DEFAULT_SETUP_SCRIPT
         generator = _SetupArgumentGenerator()
-        self.args = generator.generate_from(config)
+        self.args = generator.generate_from(self.config)
+
+
+    def _execute(self):
         result = self._execute_setup()
         if not result.dist_files:
             raise BuildSetupError()
+
 
 
     def _execute_setup(self):

@@ -58,14 +58,15 @@ DEFAULT_REQUIREMENTS_FILE = 'requirements.txt'
 DEFAULT_ARGUMENTS = [DEFAULT_COMMAND, '-r', DEFAULT_REQUIREMENTS_FILE]
 
 
-class ExecutePipTask(object):
+class ExecutePipTask(api.Task):
     
-    def __call__(self, **kwargs):
-        logging.info('Executing Python Package Installer')
-        config = kwargs.get('config')
+    def _configure(self):
         generator = _PipArgumentGenerator()
-        self.args = generator.generate_from(config)
+        self.args = generator.generate_from(self.config)
         logging.debug('Arguments: ' + repr(self.args))
+
+
+    def _execute(self):
         try:
             self._execute_pip()
         except SystemExit as exc:

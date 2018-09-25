@@ -24,20 +24,20 @@ import logging
 import os
 
 import bolt 
+import bolt.api as api
 
 
-class ExecuteConttest(object):
-
-    def __call__(self, **kwargs):
-        config = kwargs.get('config') 
-        self.task_name = config.get('task')
-        self.directory = config.get('directory') or os.getcwd()
+class ExecuteConttest(api.Task):
+    
+    def _configure(self):
+        self.task_name = self._require('task')
+        self.directory = self._optional('directory', os.getcwd())
         self.continue_on_error = True
         logging.info('Executing continously "{task}" at {directory}'.format(task=self.task_name, directory=self.directory))
-        self.execute_task()
 
 
-    def execute_task(self):
+
+    def _execute(self):
         import conttest.conttest as ct
         try:
             ct.watch_dir(self.directory, self._execute_assigned_task, method=ct.TIMES)
