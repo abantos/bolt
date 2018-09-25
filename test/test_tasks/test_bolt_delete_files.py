@@ -1,6 +1,6 @@
 import unittest
 
-import bolt.errors as bterrors
+import bolt.api as api
 import bolt.tasks.bolt_delete_files as df
 import _mocks as mck
 
@@ -12,13 +12,8 @@ class TestDeleteFilesTask(unittest.TestCase):
         return super(TestDeleteFilesTask, self).setUp()
 
 
-    def test_raises_if_configuration_specified_is_empty(self):
-        with self.assertRaises(bterrors.InvalidConfigurationError):
-            self.subject(config={})
-
-
     def test_it_requires_a_root_folder(self):
-        with self.assertRaises(bterrors.InvalidConfigurationError):
+        with self.assertRaises(api.RequiredConfigurationError):
             config={
                     'pattern': '*.*',
                 }
@@ -26,7 +21,7 @@ class TestDeleteFilesTask(unittest.TestCase):
 
 
     def test_requires_a_file_pattern(self):
-        with self.assertRaises(bterrors.InvalidConfigurationError):
+        with self.assertRaises(api.RequiredConfigurationError):
             config={
                     'sourcedir': 'C:\\sourcedir',
                 }

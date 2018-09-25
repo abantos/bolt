@@ -1,5 +1,6 @@
 import unittest
 
+import bolt.api as api
 import bolt.tasks.bolt_shell as bsh
 import _mocks as mck
 
@@ -11,12 +12,12 @@ class TestShellExecuteTask(unittest.TestCase):
 
 
     def test_configuration_cannot_be_empty(self):
-        with self.assertRaises(bsh.InvalidConfigurationError):
+        with self.assertRaises(api.RequiredConfigurationError):
             self.given({})
 
 
     def test_configuration_must_contain_command(self):
-        with self.assertRaises(bsh.InvalidConfigurationError):
+        with self.assertRaises(api.RequiredConfigurationError):
             config = {
                 'arguments': ['foo']
             }

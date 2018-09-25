@@ -41,7 +41,8 @@ case of flags. The following shows a more advance use of this task. ::
 """
 import logging
 import pip
-import bolt.errors as bterrors
+
+import bolt.api as api
 import bolt.utils as utilities
 
 major = pip.__version__.split('.')[0]
@@ -56,11 +57,31 @@ DEFAULT_COMMAND = 'install'
 DEFAULT_REQUIREMENTS_FILE = 'requirements.txt'
 DEFAULT_ARGUMENTS = [DEFAULT_COMMAND, '-r', DEFAULT_REQUIREMENTS_FILE]
 
-class PipError(bterrors.TaskError):
 
-    def __init__(self, pip_code):
-        msg = "pip exited with code: {code}".format(code=pip_code)
-        super(PipError, self).__init__(msg)
+class ExecutePipTask(object):
+    
+    def __call__(self, **kwargs):
+        logging.info('Executing Python Package Installer')
+        config = kwargs.get('config')
+        generator = _PipArgumentGenerator()
+        self.args = generator.generate_from(config)
+        logging.debug('Arguments: ' + repr(self.args))
+        try:
+            self._execute_pip()
+        except SystemExit as exc:
+            raise PipError(exc.code)
+        return 0
+
+
+    def _execute_pip(self):
+        pip_entry_point(self.args)
+
+
+
+def register_tasks(registry):
+    registry.register_task('pip', ExecutePipTask())
+
+
 
 class _PipArgumentGenerator(utilities.CommonCommandAndArgumentsGenerator):
 
@@ -84,27 +105,12 @@ class _PipArgumentGenerator(utilities.CommonCommandAndArgumentsGenerator):
 
 
 
-class ExecutePipTask(object):
-    
-    def __call__(self, **kwargs):
-        logging.info('Executing Python Package Installer')
-        config = kwargs.get('config')
-        generator = _PipArgumentGenerator()
-        self.args = generator.generate_from(config)
-        logging.debug('Arguments: ' + repr(self.args))
-        try:
-            self._execute_pip()
-        except SystemExit as exc:
-            raise PipError(exc.code)
-        return 0
+class PipError(api.TaskFailedError):
+
+    def __init__(self, pip_code):
+        super(PipError, self).__init__(pip_code)
 
 
-    def _execute_pip(self):
-        pip_entry_point(self.args)
-
-
-
-
-def register_tasks(registry):
-    registry.register_task('pip', ExecutePipTask())
+    def __repr__(self):
+        return 'PipError({code})'.format(code=self.code)
     

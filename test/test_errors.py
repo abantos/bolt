@@ -2,25 +2,6 @@ import unittest
 
 import bolt.errors as bt_errors
 
-class TestBoltError(unittest.TestCase):
-
-    def setUp(self):
-        super(TestBoltError, self).setUp()
-        self.exc = bt_errors.BoltError()
-
-
-    def test_code_is_1(self):
-        self.assertEqual(self.exc.code, 1)
-
-
-    def test_exception_as_string_shows_unknown_error(self):
-        self.assertEqual(str(self.exc), 'BoltError()')
-
-
-    def test_exception_representation_matches_string_representation(self):
-        self.assertEqual(repr(self.exc), str(self.exc))
-
-
 
 class TestInvalidTaskError(unittest.TestCase):
     # I need to check what InvalidTaskError is doing now, and evaluate if it

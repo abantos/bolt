@@ -26,34 +26,12 @@ import logging
 import os.path
 import subprocess as sp
 
-import bolt.errors as bterror
+import bolt.api as api
 import bolt.utils as utilities
 
 
 DEFAULT_DIR = './'
 DEFAULT_ARGUMENTS = [DEFAULT_DIR]
-
-
-class NoseError(bterror.TaskError):
-
-    def __init__(self, nose_code):
-        msg = "nose exited with code {code}".format(code=nose_code)
-        super(NoseError, self).__init__(msg)
-
-
-class _NoseArgumentGenerator(utilities.ArgumentsGenerator):
-
-    def __init__(self):
-        return super(_NoseArgumentGenerator, self).__init__(DEFAULT_ARGUMENTS, utilities.append_with_equal)
-
-
-    def _convert_config_to_arguments(self):
-        self.args.append('nosetests')
-        super(_NoseArgumentGenerator, self)._convert_config_to_arguments()
-        directory = self.config.get('directory') or DEFAULT_DIR
-        directory = os.path.abspath(directory)
-        self.args.append(directory)
-
 
 
 class ExecuteNoseTask(object):
@@ -74,7 +52,32 @@ class ExecuteNoseTask(object):
 
 
 
-
 def register_tasks(registry):
     registry.register_task('nose', ExecuteNoseTask())
+
+
+
+class NoseError(api.TaskFailedError):
+
+    def __init__(self, nose_code):
+        super(NoseError, self).__init__(nose_code)
+
+
+    def __repr__(self):
+        return 'NoseError({code})'.format(code=self.code)
+
+
+
+class _NoseArgumentGenerator(utilities.ArgumentsGenerator):
+
+    def __init__(self):
+        return super(_NoseArgumentGenerator, self).__init__(DEFAULT_ARGUMENTS, utilities.append_with_equal)
+
+
+    def _convert_config_to_arguments(self):
+        self.args.append('nosetests')
+        super(_NoseArgumentGenerator, self)._convert_config_to_arguments()
+        directory = self.config.get('directory') or DEFAULT_DIR
+        directory = os.path.abspath(directory)
+        self.args.append(directory)
 

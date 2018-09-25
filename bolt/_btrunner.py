@@ -1,7 +1,7 @@
 """
 """
 import logging
-import bolt.errors as bt_errors
+import bolt.api as api
 
 class TaskRunner(object):
     """
@@ -67,4 +67,4 @@ class TaskRunner(object):
 
     def _raise_if_not_none_or_zero(self, result):
         if result:
-            raise bt_errors.TaskError()
+            raise api.TaskFailedError()

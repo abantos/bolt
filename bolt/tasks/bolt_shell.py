@@ -29,14 +29,7 @@ takes a few parameters::
 import logging
 import subprocess as sp
 
-import bolt.errors as bterror
-from bolt.errors import InvalidConfigurationError, RequiredParameterMissingError
-
-class ShellError(bterror.TaskError):
-
-    def __init__(self, shell_code):
-        msg = "shell command exited with code {code}".format(code=shell_code)
-        super(ShellError, self).__init__(msg)
+import bolt.api as api
 
 
 class ShellExecuteTask(object):
@@ -49,11 +42,9 @@ class ShellExecuteTask(object):
 
 
     def _verify_valid_configuration(self):
-        if not self.config:
-            raise InvalidConfigurationError('A shell command is required')
         self.command = self.config.get('command')
         if not self.command:
-            raise RequiredParameterMissingError('command')
+            raise api.RequiredConfigurationError('command')
 
 
     def _build_command_line(self):
@@ -74,3 +65,14 @@ class ShellExecuteTask(object):
 
 def register_tasks(registry):
     registry.register_task('shell', ShellExecuteTask())
+
+
+
+class ShellError(api.TaskFailedError):
+
+    def __init__(self, shell_code):
+        super(ShellError, self).__init__(shell_code)
+
+
+    def __repr__(self):
+        return 'ShellError({code})'.format(code=self.code)

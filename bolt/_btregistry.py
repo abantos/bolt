@@ -2,7 +2,7 @@
 """
 import logging
 
-from bolt.errors import InvalidTaskError
+import bolt.api as api
 
 class TaskRegistry(object):
     """
@@ -19,7 +19,7 @@ class TaskRegistry(object):
         :return:
         """
         if not self._is_valid_task(task):
-            raise InvalidTaskError()
+            raise InvalidTaskTypeError(type(task))
         self._tasks[name] = task
         msg = '{task_name} task is registered.'.format(task_name=name)
         logging.debug(msg)
@@ -55,7 +55,16 @@ class TaskRegistry(object):
 
 
 
+class InvalidTaskTypeError(api.BoltError):
+    """
+    """
+    def __init__(self, task_type):
+        super(InvalidTaskTypeError, self).__init__(100)
+        self.task_type = task_type
 
+
+    def __repr__(self):
+        return 'InvalidTaskTypeError({t})'.format(t=self.task_type)
 
 
 
