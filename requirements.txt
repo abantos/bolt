@@ -4,5 +4,6 @@ conttest>=0.0.8
 coverage>=4.1
 
 # Build Requirements
+m2r>=0.2.1
 sphinx>=1.3
 sphinx-rtd-theme>=0.1.9
