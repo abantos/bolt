@@ -3,7 +3,7 @@
 """
 project = u'bolt-ta'
 version = u'0.2'
-release = u'0.2.9'
+release = u'0.2.10'
 description = "A task runner written in Python"
 copyright = u'2016 Abantos'
 author = u'Isaac Rodriguez'
@@ -27,7 +27,6 @@ classifiers = [
     'Programming Language :: Python :: 3.6',
     'Programming Language :: Python :: 3.7',
     'Topic :: Software Development :: Build Tools',
-    'Topic :: Software Development :: Automation',
     'Topic :: Utilities'
 ]
 
