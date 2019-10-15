@@ -40,18 +40,10 @@ case of flags. The following shows a more advance use of this task. ::
 
 """
 import logging
-import pip
+import subprocess
 
 import bolt.api as api
 import bolt.utils as utilities
-
-major = pip.__version__.split('.')[0]
-major = int(major)
-if major >= 10:
-    import pip._internal
-    pip_entry_point = pip._internal.main
-else:
-    pip_entry_point = pip.main
 
 DEFAULT_COMMAND = 'install'
 DEFAULT_REQUIREMENTS_FILE = 'requirements.txt'
@@ -67,15 +59,17 @@ class ExecutePipTask(api.Task):
 
 
     def _execute(self):
-        try:
-            self._execute_pip()
-        except SystemExit as exc:
-            raise PipError(exc.code)
+    
+        result_code = self._execute_pip()
+        if result_code != 0:
+            raise PipError(result_code)
         return 0
 
 
     def _execute_pip(self):
-        pip_entry_point(self.args)
+        command = ['pip']
+        command.extend(self.args)
+        return subprocess.call(command)
 
 
 

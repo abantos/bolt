@@ -48,8 +48,8 @@ class ExecutePipTaskSpy(bpip.ExecutePipTask):
     
     def _execute_pip(self):
         if self.raise_system_exit:
-            raise SystemExit(1)
-        pass
+            return 1
+        return 0
 
 
 
