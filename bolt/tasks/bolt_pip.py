@@ -45,9 +45,9 @@ import pip
 import bolt.api as api
 import bolt.utils as utilities
 
-major, minor, *ignore = pip.__version__.split('.')
-major = int(major)
-minor = int(minor)
+pip_version_split = pip.__version__.split('.')
+major = int(pip_version_split[0])
+minor = int(pip_version_split[1])
 if major >= 19 and minor >= 3:
     import pip._internal.main
     pip_entry_point = pip._internal.main.main
