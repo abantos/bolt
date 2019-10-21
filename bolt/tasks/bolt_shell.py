@@ -42,7 +42,7 @@ class ShellExecuteTask(api.Task):
 
 
     def _execute(self):
-        logging.debug('Shell command line: ', repr(self.command_line))
+        logging.debug('Shell command line: %s', repr(self.command_line))
         result = sp.call(self.command_line)
         if result != 0:
             raise ShellError(result)
