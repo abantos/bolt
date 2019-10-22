@@ -3,7 +3,7 @@
 """
 project = u'bolt-ta'
 version = u'0.3'
-release = u'0.3.1'
+release = u'0.3.2'
 description = "A task runner written in Python"
 copyright = u'2016 Abantos'
 author = u'Isaac Rodriguez'
