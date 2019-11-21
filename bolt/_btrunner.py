@@ -23,7 +23,7 @@ class TaskRunner(object):
 
 
     def tear_down(self):
-        for operation in self._executed_operations:
+        for operation in reversed(self._executed_operations):
             if hasattr(operation, 'tear_down'):
                 operation.tear_down()
 
