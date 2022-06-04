@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-from m2r import parse_from_file
+from m2r2 import parse_from_file
 from os import path
 import bolt.about as about
 
