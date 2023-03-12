@@ -1,7 +1,8 @@
 # Dev Requirements
-nose
 conttest
 coverage
+pytest
+pytest-cov
 
 # Build Requirements
 m2r2
