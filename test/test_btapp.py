@@ -130,7 +130,7 @@ class TestBoltApplication(unittest.TestCase):
 
 
 
-class OptionsDummy(object):
+class OptionsDummy:
     
     def __init__(self):
         self.log_level = logging.CRITICAL
@@ -138,7 +138,7 @@ class OptionsDummy(object):
         self.continue_on_error = False
 
 
-class ConfigManagerDummy(object):
+class ConfigManagerDummy:
     
     def get(self, task):
         return {}
@@ -172,7 +172,7 @@ class BoltApplicationSpy(btapp.BoltApplication):
 
 
 
-class TearableTask(object):
+class TearableTask:
     
     def __call__(self, **kwargs):
         pass 
@@ -183,7 +183,7 @@ class TearableTask(object):
 
 
 
-class LoggerDummy(object):
+class LoggerDummy:
     
     def __init__(self):
         self.handler_count = 0
@@ -222,7 +222,7 @@ class BoltFileSpy(btapp.BoltFile):
 
 
 
-class BoltModuleDouble(object):
+class BoltModuleDouble:
     
     @property
     def config(self):

@@ -2,7 +2,7 @@
 
 """
 
-class ConfigurationManager(object):
+class ConfigurationManager:
 
     def __init__(self, full_config):
         self._full_config = full_config

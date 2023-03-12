@@ -131,7 +131,7 @@ in a callable class:
 
     # in my_bolt_module.py 
 
-    class GreetingTask(object):
+    class GreetingTask:
 
         def __call__(**kwargs):
             config = kwargs.get('config')

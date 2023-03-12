@@ -5,7 +5,7 @@ bolt tasks.
 import logging
 
 
-class Task(object):
+class Task:
     """
     """
 

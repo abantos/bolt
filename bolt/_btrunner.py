@@ -3,7 +3,7 @@
 import logging
 import bolt.api as api
 
-class TaskRunner(object):
+class TaskRunner:
     """
     """
 

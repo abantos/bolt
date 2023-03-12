@@ -158,7 +158,7 @@ class TestTaskRunner(unittest.TestCase):
 
 
 
-class TearDownTask(object):
+class TearDownTask:
 
     def __init__(self):
         self.called = False

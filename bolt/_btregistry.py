@@ -4,7 +4,7 @@ import logging
 
 import bolt.api as api
 
-class TaskRegistry(object):
+class TaskRegistry:
     """
 
     """

@@ -4,7 +4,7 @@ import glob
 import logging
 import os
 
-class FileFinder(object):
+class FileFinder:
     """
     """
 

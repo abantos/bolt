@@ -21,7 +21,7 @@ import bolt.tasks.bolt_shell as bolt_shell
 import bolt.tasks.bolt_sleep as bolt_sleep
 
 
-class BoltApplication(object):
+class BoltApplication:
     """
     """
 
@@ -103,7 +103,7 @@ class BoltApplication(object):
 
 
 
-class BoltFile(object):
+class BoltFile:
     """
     """
     

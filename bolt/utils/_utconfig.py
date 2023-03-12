@@ -22,7 +22,7 @@ def append_as_tokens(arg_list, formatted_option, value):
         arg_list.append(value)
 
 
-class ArgumentsGenerator(object):
+class ArgumentsGenerator:
     
     def __init__(self, default_args, append_callback=None):
         self.default_arguments = default_args

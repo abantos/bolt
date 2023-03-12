@@ -4,7 +4,7 @@ Exposes classes related to the supported options for Bolt.
 import argparse
 import logging
 
-class Commands(object):
+class Commands:
     """
     Defines the supported commands.
     """
@@ -13,7 +13,7 @@ class Commands(object):
     VERSION = 'version'
 
 
-class Default(object):
+class Default:
     """
     Defines default values for options.
     """
@@ -25,7 +25,7 @@ class Default(object):
     CONTINUE_ON_ERROR = False
 
 
-class OptionSwitch(object):
+class OptionSwitch:
     """
     Defines values for the command line switches.
     """
@@ -41,7 +41,7 @@ class OptionSwitch(object):
 
 
 
-class Options(object):
+class Options:
     """
     Exposes application options that are initialized from the command line or
     by specifying a parameters list. 
