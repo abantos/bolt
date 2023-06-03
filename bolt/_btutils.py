@@ -1,6 +1,6 @@
 """
 """
-import imp
+import importlib
 import os.path
 import sys
 
@@ -36,7 +36,8 @@ def load_script(filename):
     """
     path, module_name, ext = _extract_script_components(filename)
     add_search_path(path)
-    return _load_module(module_name)
+    return importlib.import_module(module_name)
+    # return _load_module(module_name)
 
 
 def _extract_script_components(filename):
@@ -44,14 +45,3 @@ def _extract_script_components(filename):
     base_name = os.path.basename(filename)
     module_name, ext = os.path.splitext(base_name)
     return path, module_name, ext
-
-
-def _load_module(module_name):
-    file = None
-    try:
-        file, pathname, description = imp.find_module(module_name)
-        module = imp.load_module(module_name, file, pathname, description)
-        return module
-    finally:
-        if file:
-            file.close()
