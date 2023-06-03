@@ -1,31 +1,25 @@
 """
-This module contains classes that can be used for the implementation of 
+This module contains classes that can be used for the implementation of
 bolt tasks.
 """
 import logging
 
 
 class Task:
-    """
-    """
+    """ """
 
     def __call__(self, **kwargs):
-        self.config = kwargs.get('config')
+        self.config = kwargs.get("config")
         self._configure()
         self._execute()
 
-
     def _configure(self):
-        """
-        """
-        logging.warning('Derived classes should implement _configure()')
-
+        """ """
+        logging.warning("Derived classes should implement _configure()")
 
     def _execute(self):
-        """
-        """
-        logging.warning('Derived classes should implement _execute()')
-
+        """ """
+        logging.warning("Derived classes should implement _execute()")
 
     def _require(self, key):
         value = self.config.get(key)
@@ -33,10 +27,8 @@ class Task:
             raise RequiredConfigurationError(key)
         return value
 
-
     def _optional(self, key, default=None):
         return self.config.get(key, default)
-        
 
 
 class BoltError(Exception):
@@ -46,13 +38,12 @@ class BoltError(Exception):
 
     Errors for the Bolt application itself should be derived from this class.
     """
+
     def __init__(self, code=1):
         self.code = code
 
-
     def __repr__(self):
-        return 'BoltError({code})'.format(code=self.code)
-
+        return "BoltError({code})".format(code=self.code)
 
     def __str__(self):
         return repr(self)
@@ -72,12 +63,12 @@ class TaskError(BoltError):
         :class:`ConfigurationValueError`
         :class:`TaskFailedError`
     """
+
     def __init__(self, code=999):
         super(TaskError, self).__init__(code)
 
-
     def __repr__(self):
-        return 'TaskError({code})'.format(code=self.code)
+        return "TaskError({code})".format(code=self.code)
 
 
 class RequiredConfigurationError(TaskError):
@@ -87,14 +78,13 @@ class RequiredConfigurationError(TaskError):
     :param str parameter:
         Name of the parameter missing.
     """
+
     def __init__(self, parameter):
         super(RequiredConfigurationError, self).__init__(2)
         self.parameter = parameter
 
-
     def __repr__(self):
-        return 'RequiredConfigurationError({param})'.format(param=self.parameter)
-
+        return "RequiredConfigurationError({param})".format(param=self.parameter)
 
 
 class ConfigurationValueError(TaskError):
@@ -107,15 +97,16 @@ class ConfigurationValueError(TaskError):
     :param any value:
         Invalid value specified.
     """
+
     def __init__(self, parameter, value):
         super(ConfigurationValueError, self).__init__(3)
         self.parameter = parameter
         self.value = value
 
-
     def __repr__(self):
-        return 'ConfigurationValueError({param}, {value})'.format(param=self.parameter, value=self.value)
-        
+        return "ConfigurationValueError({param}, {value})".format(
+            param=self.parameter, value=self.value
+        )
 
 
 class TaskFailedError(TaskError):
@@ -124,10 +115,9 @@ class TaskFailedError(TaskError):
     to raise this exception directly or derive from a more specific exception
     to provide more information about the error.
     """
+
     def __init__(self, code=4):
         super(TaskFailedError, self).__init__(code)
 
-
     def __repr__(self):
-        return 'TaskFailedError({code})'.format(code=self.code)
-
+        return "TaskFailedError({code})".format(code=self.code)

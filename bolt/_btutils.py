@@ -7,20 +7,19 @@ import sys
 
 def add_search_path(*path_tokens):
     """
-    Adds a new search path from where modules can be loaded. 
-    
+    Adds a new search path from where modules can be loaded.
+
     This function is provided for test applications to add locations to the search path, so any required functionality
     can be loaded. It helps keeping the step implementation modules simple by placing the bulk of the implementation in
     separate utility libraries. This function can also be used to add the application being tested to the path, so its
     functionality can be made available for testing.
 
-    :param arglist path_tokens: 
+    :param arglist path_tokens:
         Variable list of path tokens that is joined to create the full, absolute path to be added.
     """
     full_path = os.path.join(*path_tokens)
     if full_path not in sys.path:
         sys.path.insert(0, os.path.abspath(full_path))
-
 
 
 def load_script(filename):
@@ -56,5 +55,3 @@ def _load_module(module_name):
     finally:
         if file:
             file.close()
-
-

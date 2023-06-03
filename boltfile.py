@@ -54,7 +54,7 @@ config = {
             },
         },
     },
-    'conttest' : {
+    'conttest': {
         'task': 'ut'
     },
     'mkdir': {

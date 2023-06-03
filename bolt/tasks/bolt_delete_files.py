@@ -5,7 +5,7 @@ delete-files
 ------------
 
 This task deletes files matching a specified ``pattern`` found in a specified
-``sourcedir``. A ``recursive`` flag can be specified to search also in 
+``sourcedir``. A ``recursive`` flag can be specified to search also in
 sub-directories of ``sourcedir``.
 
 The ``pattern`` specified follows the matching rules of the |python|_ standard
@@ -55,43 +55,38 @@ The ``sourcedir`` option specifies the directory to search for ``.pyc`` files.
 This option is required.
 
 The ``recursive`` option indicates if sub-directories should be searched for
-matches. This option is optional and has a value of ``False`` by default. 
+matches. This option is optional and has a value of ``False`` by default.
 """
-import glob
 import logging
-import os
 
 import bolt.api as api
 import bolt.utils as utilities
 
+
 class DeleteFilesTask(api.Task):
-
     def _configure(self):
-        self.sourcedir = self._require('sourcedir')
-        self.pattern = self._require('pattern')
-        self.recursive = self._optional('recursive')
-        
-
+        self.sourcedir = self._require("sourcedir")
+        self.pattern = self._require("pattern")
+        self.recursive = self._optional("recursive")
 
     def _execute(self):
-        logging.info('Deleting {pat} from {srcdir}.'.format(pat=self.pattern, srcdir=self.sourcedir))
+        logging.info(
+            "Deleting {pat} from {srcdir}.".format(
+                pat=self.pattern, srcdir=self.sourcedir
+            )
+        )
         finder = utilities.FileFinder(self.sourcedir, self.pattern, self.recursive)
         matches = finder.find()
         utilities.delete_files_in(matches)
 
 
-
 class DeletePycTask(DeleteFilesTask):
-
     def _configure(self):
-        self.config['pattern'] = '*.pyc'
-        logging.debug('Delete pattern set to ' + self.config['pattern'])
+        self.config["pattern"] = "*.pyc"
+        logging.debug("Delete pattern set to " + self.config["pattern"])
         super(DeletePycTask, self)._configure()
 
 
-
-
 def register_tasks(registry):
-    registry.register_task('delete-files', DeleteFilesTask())
-    registry.register_task('delete-pyc', DeletePycTask())   
-
+    registry.register_task("delete-files", DeleteFilesTask())
+    registry.register_task("delete-pyc", DeletePycTask())

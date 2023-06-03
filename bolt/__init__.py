@@ -1,23 +1,19 @@
 """
 This is the main module that exposes the required functions to use bolt in your applications.
 """
-import sys
-
 import bolt._btapp as btapp
 import bolt._btoptions as btoptions
 import bolt.utils.log as btlog
 
 
 def register_module_tasks(module):
-    """
-    """
+    """ """
     app = btapp.get_application()
     app.registry.register_module_tasks(module)
 
 
 def register_task(name, task):
-    """
-    """
+    """ """
     app = btapp.get_application()
     app.registry.register_task(name, task)
 
@@ -37,7 +33,6 @@ def run():
     app = btapp.get_application()
     app.run()
 
-    
 
-if __name__=="__main__":
+if __name__ == "__main__":
     run()

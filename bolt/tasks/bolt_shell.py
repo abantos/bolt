@@ -5,7 +5,7 @@ shell
 The ``shell`` task allows executing a shell command with specified arguments
 inside the bolt execution context. This task comes handy when no bolt
 specific implementation has been provided for a particular task or to invoke
-an existing script that should be included as part of the process. 
+an existing script that should be included as part of the process.
 
 The trade-off of using this task is that commands are system specific and
 it makes it harder to implement a cross-platform ``boltfile.py``.
@@ -33,34 +33,26 @@ import bolt.api as api
 
 
 class ShellExecuteTask(api.Task):
-    
     def _configure(self):
-        self.command = self._require('command')
+        self.command = self._require("command")
         self.command_line = [self.command]
-        arguments = self._optional('arguments', [])
+        arguments = self._optional("arguments", [])
         self.command_line.extend(arguments)
 
-
     def _execute(self):
-        logging.debug('Shell command line: %s', repr(self.command_line))
+        logging.debug("Shell command line: %s", repr(self.command_line))
         result = sp.call(self.command_line)
         if result != 0:
             raise ShellError(result)
 
 
-        
-
-
 def register_tasks(registry):
-    registry.register_task('shell', ShellExecuteTask())
-
+    registry.register_task("shell", ShellExecuteTask())
 
 
 class ShellError(api.TaskFailedError):
-
     def __init__(self, shell_code):
         super(ShellError, self).__init__(shell_code)
 
-
     def __repr__(self):
-        return 'ShellError({code})'.format(code=self.code)
+        return "ShellError({code})".format(code=self.code)

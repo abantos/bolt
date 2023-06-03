@@ -22,18 +22,21 @@ import logging
 import bolt
 import bolt.api as api
 
+
 class ExecuteCoverage(api.Task):
-    
     def _configure(self):
-        self.task_name = self._require('task')
-        self.include_dir = self._require('include')
-        self.out_dir = self._require('output')
-        logging.info('Code coverage for {task}. Output at {directory}'.format(task=self.task_name, directory=self.out_dir))
-
-
+        self.task_name = self._require("task")
+        self.include_dir = self._require("include")
+        self.out_dir = self._require("output")
+        logging.info(
+            "Code coverage for {task}. Output at {directory}".format(
+                task=self.task_name, directory=self.out_dir
+            )
+        )
 
     def _execute(self):
         import coverage.control as cov
+
         controller = cov.Coverage(auto_data=False, branch=True, source=self.include_dir)
         controller.start()
         bolt.run_task(self.task_name)
@@ -41,7 +44,5 @@ class ExecuteCoverage(api.Task):
         controller.html_report(directory=self.out_dir)
 
 
-
 def register_tasks(registry):
-    registry.register_task('coverage', ExecuteCoverage())
-    
+    registry.register_task("coverage", ExecuteCoverage())

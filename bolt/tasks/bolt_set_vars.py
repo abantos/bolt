@@ -25,18 +25,15 @@ import os
 
 import bolt.api as api
 
-class SetVarsTask(api.Task):
-    
-    def _configure(self):
-        self.vars = self._require('vars')
 
+class SetVarsTask(api.Task):
+    def _configure(self):
+        self.vars = self._require("vars")
 
     def _execute(self):
         for var in self.vars:
             os.environ[var] = str(self.vars[var])
 
 
-
-
 def register_tasks(registry):
-    registry.register_task('set-vars', SetVarsTask())
+    registry.register_task("set-vars", SetVarsTask())
