@@ -6,6 +6,6 @@ pytest-cov
 
 # Build Requirements
 m2r2
-sphinx==6.2.1
+sphinx<7.0
 sphinx-rtd-theme
 wheel
