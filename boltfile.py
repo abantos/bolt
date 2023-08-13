@@ -23,6 +23,7 @@ _src_dir = os.path.join(PROJECT_ROOT, 'bolt')
 _test_dir = os.path.join(PROJECT_ROOT, 'test')
 _output_dir = os.path.join(PROJECT_ROOT, 'output')
 _coverage_dir = os.path.join(_output_dir, 'coverage')
+_coverage_report = os.path.join(_coverage_dir, 'coverage.xml')
 
 config = {
     'pip': {
@@ -46,9 +47,9 @@ config = {
                 "arguments": [
                     "-m",
                     "pytest",
-                    f"--cov={about.project}",
+                    f"--cov=bolt",
                     "--cov-report",
-                    f"html:{_coverage_dir}",
+                    f"xml:{_coverage_report}",
                     _test_dir,
                 ]
             },
