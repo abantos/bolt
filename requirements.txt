@@ -3,6 +3,7 @@ conttest
 coverage
 pytest
 pytest-cov
+pytest-github-report
 
 # Build Requirements
 m2r2
