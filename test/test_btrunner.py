@@ -53,7 +53,7 @@ class TestTaskRunner(unittest.TestCase):
 
     def test_executes_all_tasks_in_multi_task(self):
         self.given("multi_task")
-        self.expect_executed("task_3")
+        self.expect_executed("task_1")
         self.expect_executed("task_2")
 
     def test_task_is_executed_with_correct_configuration(self):
