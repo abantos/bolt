@@ -31,8 +31,6 @@ jobs:
         pip install -r requirements.txt
         python setup.py develop
     - name: Run Tests
-      env:
-        pytest_verbosity: 2
       run: |
         bolt run-unit-tests
     - name: Code Coverate Report
