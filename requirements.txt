@@ -7,6 +7,6 @@ pytest-github-report
 
 # Build Requirements
 m2r2
-sphinx<7.0
+sphinx
 sphinx-rtd-theme
 wheel
