@@ -25,29 +25,68 @@ takes a few parameters::
     }
 
 ..  todo::  Find a better example.
+
+spawn
+-----
+
+The ``spawn`` task works exactly the same as the shell task, but creates a
+separate process for the program execution, which allows executing a process
+that needs to keep running while other programs execute. On tear down, the
+process is terminated.
+
+..  code-block:: python
+
+    config = {
+        'spawn': {
+            'command': 'python',
+            'arguments': ['existing_script.py', '--with-argument', '-f', '--arg-with', 'a_value']
+        }
+    }
 """
 import logging
 import subprocess as sp
 
 import bolt.api as api
 
+SUCCESS = 0
 
 class ShellExecuteTask(api.Task):
     def _configure(self):
-        self.command = self._require("command")
+        self.command = self._require('command')
         self.command_line = [self.command]
-        arguments = self._optional("arguments", [])
+        arguments = self._optional('arguments', [])
         self.command_line.extend(arguments)
 
     def _execute(self):
-        logging.debug("Shell command line: %s", repr(self.command_line))
-        result = sp.call(self.command_line)
-        if result != 0:
+        logging.debug('Shell command line: %s', repr(self.command_line))
+        result = self._invoke(self.command_line)
+        if result != SUCCESS:
             raise ShellError(result)
+
+    def _invoke(self, command_line):
+        return sp.call(command_line)\
+        
+
+class SpawnExecuteTask(ShellExecuteTask):
+
+    def tear_down(self):
+        self._process.terminate()
+    
+    def _invoke(self, command_line):
+        try:
+            self._process = self._spawn_process(command_line)
+        except OSError as error:
+            logging.warning(error)
+            return error.errno
+        return SUCCESS
+    
+    def _spawn_process(self, command_line):
+        return sp.Popen(command_line)
 
 
 def register_tasks(registry):
-    registry.register_task("shell", ShellExecuteTask())
+    registry.register_task('shell', ShellExecuteTask())
+    registry.register_task('spawn', SpawnExecuteTask())
 
 
 class ShellError(api.TaskFailedError):
@@ -55,4 +94,4 @@ class ShellError(api.TaskFailedError):
         super(ShellError, self).__init__(shell_code)
 
     def __repr__(self):
-        return "ShellError({code})".format(code=self.code)
+        return 'ShellError({code})'.format(code=self.code)
