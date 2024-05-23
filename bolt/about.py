@@ -2,8 +2,9 @@
 
 """
 project = "bolt-ta"
+package = 'bolt'
 version = "0.3"
-release = "0.3.7"
+release = "0.3.8"
 description = "A task runner written in Python"
 copyright = "2016 Abantos"
 author = "Isaac Rodriguez"

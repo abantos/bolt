@@ -9,10 +9,11 @@ import bolt.about as about
 bolt.register_task('clear-pyc', ['delete-pyc', 'delete-pyc.test-pyc'])
 bolt.register_task('ut', ['clear-pyc', 'shell.pytest'])
 bolt.register_task('ct', ['conttest'])
+bolt.register_task('lcov', ['clear-pyc', 'mkdir', 'mkdir.test', 'shell.pytest.coverage'])
 bolt.register_task('pack', ['setup', 'setup.egg-info'])
 
 # CI/CD tasks
-bolt.register_task('run-unit-tests', ['clear-pyc', 'mkdir', 'mkdir.test', 'shell.pytest.coverage'])
+bolt.register_task('run-unit-tests', ['clear-pyc', 'mkdir', 'mkdir.test', 'shell.pytest.ci'])
 
 # Default task (not final).
 bolt.register_task('default', ['pip', 'ut'])
@@ -45,7 +46,7 @@ config = {
         "pytest": {
             "command": sys.executable,
             "arguments": ["-m", "pytest", TEST_DIR],
-            "coverage": {
+            "ci": {
                 "arguments": [
                     "-m",
                     "pytest",
@@ -53,6 +54,17 @@ config = {
                     f"--cov=bolt",
                     "--cov-report",
                     f"xml:{COVERAGE_REPORT}",
+                    TEST_DIR,
+                ]
+            },
+            'coverage': {
+                'arguments': [
+                    '-m',
+                    'pytest',
+                    '--github-report',
+                    f'--cov={about.package}',
+                    '--cov-report',
+                    f'html:{COVERAGE_DIR}',
                     TEST_DIR,
                 ]
             },
