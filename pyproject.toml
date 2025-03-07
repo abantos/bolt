@@ -1,6 +1,6 @@
 [project]
 name = "bolt-ta"
-version = "0.4.0"
+version = "0.4.1"
 description = "A simple task runner written in Python"
 readme = "README.md"
 authors = [{ name = "Abantos", email = "oss.abantos@outlook.com" }]
@@ -21,9 +21,7 @@ classifiers = [
     "Topic :: Software Development :: Build Tools",
     "Topic :: Utilities",
 ]
-dependencies = [
-    "docutils<0.21",
-]
+dependencies = ["docutils<0.21"]
 
 [project.urls]
 Homepage = "https://github.com/abantos/bolt"
