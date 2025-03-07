@@ -19,7 +19,7 @@ bolt.register_task('pack', ['setup', 'setup.egg-info'])
 bolt.register_task('run-unit-tests', ['clear-pyc', 'mkdir', 'mkdir.test', 'shell.pytest.ci'])
 
 # Default task (not final).
-bolt.register_task('default', ['pip', 'ut'])
+bolt.register_task('default', ['ut'])
 
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
