@@ -58,7 +58,7 @@ jobs:
           path: code-coverage-results.md
 
       - name: Build Documentation
-        run: uv run sphinx-build -M html .\docs\source\ .\docs\build\
+        run: uv run sphinx-build -M html docs/source docs/build
 
       - name: Build Package
         run: uv build
