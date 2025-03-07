@@ -1,0 +1,21 @@
+changelog:
+  exclude:
+    labels:
+      - duplicate
+      - invalid
+      - question
+      - wontfix
+      - cicd
+  categories:
+    - title: New Features
+      labels:
+        - enhancement
+        - feature
+
+    - title: Security Fixes
+      labels:
+        - security-fix
+
+    - title: Bug Fixes
+      labels:
+        - bug
