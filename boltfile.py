@@ -2,7 +2,10 @@ import os.path
 import sys
 
 import bolt
-import bolt.about as about
+import bolt.project as bproj
+
+about = bproj.load_project()
+
 
 
 # Development tasks
@@ -62,7 +65,7 @@ config = {
                     '-m',
                     'pytest',
                     '--github-report',
-                    f'--cov={about.package}',
+                    f'--cov={about.tool.bolt.project.package}',
                     '--cov-report',
                     f'html:{COVERAGE_DIR}',
                     TEST_DIR,

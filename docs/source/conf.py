@@ -15,15 +15,20 @@
 import sys
 import os
 
-import bolt.about
+import bolt.project as bproj
+
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 # sys.path.insert(0, os.path.abspath('.'))
-
-source_dir = os.path.join(os.path.dirname(__file__), "..", "..")
+root = os.path.join(os.path.dirname(__file__), "..", "..")
+source_dir = os.path.join(root, "src")
 sys.path.insert(0, os.path.abspath(source_dir))
+
+pyproject_file = os.path.join(root, "pyproject.toml")
+pyproject = bproj.load_project(pyproject_file)
+about = pyproject.project
 
 
 # -- General configuration ------------------------------------------------
@@ -61,18 +66,19 @@ source_suffix = [
 master_doc = "index"
 
 # General information about the project.
-project = bolt.about.project
-copyright = bolt.about.copyright
-author = bolt.about.author
+project = about.name
+copyright = pyproject.tool.bolt.project.copyright
+author = about.authors[0].name
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = bolt.about.version
+tokens = about.version.split(".")
+version = '.'.join(tokens[:2])
 # The full version, including alpha/beta/rc tags.
-release = bolt.about.release
+release = about.version
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
