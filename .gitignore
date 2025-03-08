@@ -40,6 +40,7 @@ var/
 
 # Local virtual environments
 .virtualenv/
+.venv/
 
 # Installer logs
 pip-log.txt
