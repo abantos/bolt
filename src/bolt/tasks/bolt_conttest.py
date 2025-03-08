@@ -20,6 +20,7 @@ To use this task, you need to have ``conttest`` installed, which you can do by c
 
     pip install conttest
 """
+
 import logging
 import os
 

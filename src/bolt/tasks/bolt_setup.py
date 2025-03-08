@@ -23,6 +23,7 @@ configure the task. ::
         }
     }
 """
+
 import logging
 
 import bolt.api as api
@@ -41,21 +42,23 @@ class ExecuteSetupTask(api.Task):
             self.setup_script = DEFAULT_SETUP_SCRIPT
         generator = _SetupArgumentGenerator()
         self.args = generator.generate_from(self.config)
-        logging.debug(f'Setup script: {self.setup_script}')
-        logging.debug(f'Arguments: {self.args}')
+        logging.debug(f"Setup script: {self.setup_script}")
+        logging.debug(f"Arguments: {self.args}")
 
     def _execute(self):
         result = self._execute_setup()
         if not result.dist_files:
             raise BuildSetupError()
 
-    def _execute_setup(self):        
+    def _execute_setup(self):
         try:
             import distutils.core as dcore
+
             return dcore.run_setup(self.setup_script, self.args)
         except ImportError:
-            logging.warning('Failed to import <distutils> please install the <setuptools> package.')
-            
+            logging.warning(
+                "Failed to import <distutils> please install the <setuptools> package."
+            )
 
 
 def register_tasks(registry):

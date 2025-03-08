@@ -39,6 +39,7 @@ case of flags. The following shows a more advance use of this task. ::
     }
 
 """
+
 import logging
 import subprocess
 

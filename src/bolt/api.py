@@ -2,6 +2,7 @@
 This module contains classes that can be used for the implementation of
 bolt tasks.
 """
+
 import logging
 
 

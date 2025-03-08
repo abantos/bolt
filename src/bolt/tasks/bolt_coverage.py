@@ -17,6 +17,7 @@ task. The following is a sample configuration:
 
 The specified task must exercise the code that will be measured.
 """
+
 import logging
 
 import bolt

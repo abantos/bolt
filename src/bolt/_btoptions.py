@@ -1,6 +1,7 @@
 """
 Exposes classes related to the supported options for Bolt.
 """
+
 import argparse
 import logging
 

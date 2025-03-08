@@ -57,6 +57,7 @@ This option is required.
 The ``recursive`` option indicates if sub-directories should be searched for
 matches. This option is optional and has a value of ``False`` by default.
 """
+
 import logging
 
 import bolt.api as api

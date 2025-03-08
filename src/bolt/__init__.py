@@ -1,6 +1,7 @@
 """
 This is the main module that exposes the required functions to use bolt in your applications.
 """
+
 import bolt._btapp as btapp
 import bolt._btoptions as btoptions
 import bolt.utils.log as btlog

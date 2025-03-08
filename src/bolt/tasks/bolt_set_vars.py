@@ -21,6 +21,7 @@ shows how the task is configured:
 
 Numeric vars will be converted to their integer representation.
 """
+
 import os
 
 import bolt.api as api

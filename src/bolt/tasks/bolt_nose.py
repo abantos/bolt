@@ -22,6 +22,7 @@ of nosetests::
             }
     }
 """
+
 import logging
 import os.path
 import subprocess as sp

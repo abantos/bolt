@@ -2,6 +2,7 @@
 This module defines exception classes used in the implementation of Bolt to
 report errors or as base classes to define other error conditions.
 """
+
 from bolt.api import BoltError
 
 
