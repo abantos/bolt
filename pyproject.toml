@@ -21,7 +21,7 @@ classifiers = [
     "Topic :: Software Development :: Build Tools",
     "Topic :: Utilities",
 ]
-dependencies = ["docutils<0.21"]
+dependencies = []
 
 [project.urls]
 Homepage = "https://github.com/abantos/bolt"
@@ -43,6 +43,7 @@ dev = [
     "assertpy>=1.1",
     "conttest>=0.0.8",
     "coverage>=7.6.1",
+    "docutils<0.21",
     "m2r2>=0.3.3.post2",
     "pytest>=8.3.5",
     "pytest-cov>=5.0.0",
