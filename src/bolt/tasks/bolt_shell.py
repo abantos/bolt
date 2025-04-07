@@ -44,6 +44,7 @@ process is terminated.
     }
 """
 
+import importlib
 import logging
 import subprocess as sp
 
@@ -70,8 +71,12 @@ class ShellExecuteTask(api.Task):
 
 
 class SpawnExecuteTask(ShellExecuteTask):
+    def __init__(self, finalizer=None):
+        super(SpawnExecuteTask, self).__init__()
+        self.finalizer = finalizer or self._finalize
+
     def tear_down(self):
-        self._process.terminate()
+        self._finalize(self._process)
 
     def _invoke(self, command_line):
         try:
@@ -84,10 +89,35 @@ class SpawnExecuteTask(ShellExecuteTask):
     def _spawn_process(self, command_line):
         return sp.Popen(command_line)
 
+    def _finalize(self, process):
+        process.terminate()
+
 
 def register_tasks(registry):
     registry.register_task("shell", ShellExecuteTask())
-    registry.register_task("spawn", SpawnExecuteTask())
+    registry.register_task("spawn", SpawnExecuteTask(_try_import_psutil()))
+
+
+def _try_import_psutil():
+    try:
+        return importlib.import_module("psutil")
+    except ImportError:
+        logging.warning("psutil not available, child processes will not be terminated")
+
+
+class _PsUtilFinalizer:
+    def __init__(self, psutil_module):
+        self.psutil = psutil_module
+
+    def __call__(self, process):
+        process = self.psutil.Process(process.pid)
+        for child in process.children(recursive=True):
+            self._terminate(child)
+        self._terminate(process)
+
+    def _terminate(self, process):
+        if process.is_running():
+            process.terminate()
 
 
 class ShellError(api.TaskFailedError):
