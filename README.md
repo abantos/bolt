@@ -1,6 +1,8 @@
 # Bolt Task Automation
 
-[![Verify Python Library](https://github.com/abantos/bolt/actions/workflows/python-verify-library.yml/badge.svg)](https://github.com/abantos/bolt/actions/workflows/python-verify-library.yml)
+[![Build](https://github.com/abantos/bolt/actions/workflows/build.yml/badge.svg)](https://github.com/abantos/bolt/actions/workflows/build.yml)
+[![Release](https://github.com/abantos/bolt/actions/workflows/release.yml/badge.svg)](https://github.com/abantos/bolt/actions/workflows/release.yml)
+
 
 Bolt is a task runner inspired by [grunt](http://gruntjs.com/) and written in
 [python](http://www.python.org) that helps you automate any task in your project
