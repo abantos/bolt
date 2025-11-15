@@ -177,8 +177,8 @@ class TestMyFeature(unittest.TestCase):
         
     def test_feature_handles_error_condition(self):
         """Test error cases and edge conditions"""
+        task = MyTask()
         with self.assertRaises(RequiredConfigurationError):
-            task = MyTask()
             task({})  # Missing required config
 ```
 
