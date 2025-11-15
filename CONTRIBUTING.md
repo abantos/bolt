@@ -161,17 +161,15 @@ from assertpy import assert_that
 from bolt.api import Task
 
 class TestMyFeature(unittest.TestCase):
-    def setUp(self):
-        """Set up test fixtures"""
-        self.config = {"param": "value"}
         
     def test_feature_does_something(self):
         """Test should have a descriptive name and docstring"""
         # Arrange
+        config = {"param": "value"}
         task = MyTask()
         
         # Act
-        result = task(self.config)
+        result = task(config)
         
         # Assert
         assert_that(result).is_not_none()
