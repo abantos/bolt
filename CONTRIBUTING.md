@@ -101,7 +101,7 @@ def test_task_executes_with_config():
 
 # 2. Write minimal code to pass (GREEN)
 class MyNewTask(Task):
-    def execute(self):
+    def _execute(self):
         return Result(success=True)
 
 # 3. Refactor (REFACTOR)
