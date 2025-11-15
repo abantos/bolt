@@ -93,16 +93,21 @@ The project includes several development dependencies:
 
 ```python
 # 1. Write a failing test (RED)
-def test_task_executes_with_config():
+def test_task_executes_with_config(monkeypatch):
     config = {"param": "value"}
     task = MyNewTask()
-    result = task(config)
-    assert result.success is True
+    called = {}
+    def fake_execute(self):
+        called["executed"] = True
+    monkeypatch.setattr(MyNewTask, "execute", fake_execute)
+    task(config)
+    assert called.get("executed") is True
 
 # 2. Write minimal code to pass (GREEN)
 class MyNewTask(Task):
-    def _execute(self):
-        return Result(success=True)
+    def execute(self):
+        # Actual execution logic here
+        pass
 
 # 3. Refactor (REFACTOR)
 # Clean up, add error handling, improve names, etc.
