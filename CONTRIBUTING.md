@@ -163,7 +163,7 @@ Tests are located in the `test/` directory and use `pytest` and `assertpy`:
 ```python
 import unittest
 from assertpy import assert_that
-from bolt.api import Task
+from bolt.api import Task, RequiredConfigurationError
 
 class TestMyFeature(unittest.TestCase):
         
