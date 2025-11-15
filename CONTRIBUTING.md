@@ -169,11 +169,11 @@ class TestMyFeature(unittest.TestCase):
         task = MyTask()
         
         # Act
-        result = task(config)
+        task(config)
         
         # Assert
-        assert_that(result).is_not_none()
-        assert_that(result.success).is_true()
+        # Example: check a side effect, such as a property on the task instance
+        assert_that(task.was_successful).is_true()
         
     def test_feature_handles_error_condition(self):
         """Test error cases and edge conditions"""
