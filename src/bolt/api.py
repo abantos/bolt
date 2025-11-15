@@ -9,8 +9,8 @@ import logging
 class Task:
     """ """
 
-    def __call__(self, **kwargs):
-        self.config = kwargs.get("config")
+    def __call__(self, config, **kwargs):
+        self.config = config
         self._configure()
         self._execute()
 
