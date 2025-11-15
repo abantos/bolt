@@ -225,7 +225,7 @@ uv run pytest test/test_api.py::TestTask::test_specific_behavior
 
 - Follow **PEP 8** style guidelines
 - Use **4 spaces** for indentation (no tabs)
-- Maximum line length: **88 characters** (Black default)
+- Maximum line length: **79 characters** (PEP 8 standard)
 - Use meaningful variable and function names
 
 ### Code Quality
