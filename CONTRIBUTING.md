@@ -93,16 +93,19 @@ The project includes several development dependencies:
 
 ```python
 # 1. Write a failing test (RED)
-def test_task_executes_with_config():
+def test_task_configures_with_required_param(self):
     config = {"param": "value"}
     task = MyNewTask()
-    result = task(config)
-    assert result.success is True
+    task(config=config)
+    self.assertEqual(task.param, "value")
 
 # 2. Write minimal code to pass (GREEN)
 class MyNewTask(Task):
-    def execute(self):
-        return Result(success=True)
+    def _configure(self):
+        self.param = self._require("param")
+    
+    def _execute(self):
+        pass
 
 # 3. Refactor (REFACTOR)
 # Clean up, add error handling, improve names, etc.
