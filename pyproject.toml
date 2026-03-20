@@ -43,13 +43,13 @@ dev = [
     "assertpy>=1.1",
     "conttest>=0.0.8",
     "coverage>=7.6.1",
-    "docutils<0.21",
-    "m2r2>=0.3.3.post2",
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.25",
+    "mkdocs-autorefs>=1.0",
     "pytest>=8.3.5",
     "pytest-cov>=5.0.0",
     "pytest-github-report>=0.0.1",
-    "sphinx>=7.1.2",
-    "sphinx-rtd-theme>=3.0.2",
 ]
 
 [tool.bolt.project]
