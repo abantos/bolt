@@ -4,13 +4,7 @@ build:
   os: ubuntu-24.04
   tools:
     python: "3.12"
-
-mkdocs:
-  configuration: mkdocs.yml
-
-python:
-  install:
-    - method: pip
-      path: .
-      extra_requirements:
-        - dev
+  commands:
+    - pip install uv
+    - uv sync --group dev
+    - uv run mkdocs build --site-dir $READTHEDOCS_OUTPUT/html
