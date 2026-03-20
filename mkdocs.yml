@@ -1,0 +1,36 @@
+site_name: Bolt Task Automation
+site_url: https://bolt-task-automation.readthedocs.io/en/latest/
+site_description: A simple task runner written in Python
+site_author: Abantos
+repo_url: https://github.com/abantos/bolt
+repo_name: abantos/bolt
+copyright: "2016, Abantos"
+
+docs_dir: docs
+
+theme:
+  name: material
+  palette:
+    primary: indigo
+    accent: indigo
+
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: false
+            docstring_style: sphinx
+
+nav:
+  - Home: index.md
+  - Using Bolt:
+    - Overview: using_bolt.md
+    - Getting Started: using/getting_started.md
+    - Dissecting the Boltfile: using/disecting_boltfile.md
+    - Provided Tasks: using/provided_tasks.md
+    - Custom Tasks: using/custom_tasks.md
+  - Contributing: contribute.md
+  - TODO: todo_list.md
