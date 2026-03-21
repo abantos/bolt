@@ -7,12 +7,18 @@ repo_name: abantos/bolt
 copyright: "2016, Abantos"
 
 docs_dir: docs
+watch:
+  - README.md
 
 theme:
   name: material
   palette:
     primary: indigo
     accent: indigo
+
+markdown_extensions:
+  - pymdownx.snippets:
+      base_path: .
 
 plugins:
   - search
