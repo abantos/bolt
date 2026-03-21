@@ -1,4 +1,1 @@
-# Contributing to Bolt
-
-!!! note "TODO"
-    This topic is still being written.
+--8<-- "CONTRIBUTING.md"

@@ -37,10 +37,10 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 ## Development Setup
 
-Bolt uses [uv](https://docs.astral.sh/uv/) for dependency management. Follow these steps to set up your development environment:
+Bolt uses [`uv`](https://docs.astral.sh/uv/) for dependency management. Follow these steps to set up your development environment:
 
-1. **Install uv** (if not already installed):
-   
+1. **Install `uv`** (if not already installed):
+
    Follow the installation instructions for your operating system at: https://docs.astral.sh/uv/getting-started/installation/
 
 2. **Sync dependencies**:
@@ -52,16 +52,6 @@ Bolt uses [uv](https://docs.astral.sh/uv/) for dependency management. Follow the
    ```bash
    uv run bolt ut
    ```
-
-### Development Dependencies
-
-The project includes several development dependencies:
-- **pytest**: Test framework
-- **pytest-cov**: Code coverage plugin
-- **assertpy**: Fluent assertion library
-- **conttest**: Continuous testing
-- **sphinx**: Documentation generator
-- **coverage**: Code coverage measurement
 
 ## Test-Driven Development
 
@@ -166,20 +156,20 @@ from assertpy import assert_that
 from bolt.api import Task, RequiredConfigurationError
 
 class TestMyFeature(unittest.TestCase):
-        
+
     def test_feature_does_something(self):
         """Test should have a descriptive name and docstring"""
         # Arrange
         config = {"param": "value"}
         task = MyTask()
-        
+
         # Act
         task(config)
-        
+
         # Assert
         # Example: check a side effect, such as a property on the task instance
         assert_that(task.was_successful).is_true()
-        
+
     def test_feature_handles_error_condition(self):
         """Test error cases and edge conditions"""
         task = MyTask()
@@ -244,17 +234,17 @@ uv run pytest test/test_api.py::TestTask::test_specific_behavior
 ```python
 def register_task(name, dependencies=None):
     """Register a task with optional dependencies.
-    
+
     Args:
         name (str): The name of the task to register.
         dependencies (list, optional): List of task names this task depends on.
-        
+
     Returns:
         bool: True if registration was successful.
-        
+
     Raises:
         TaskRegistrationError: If a task with the same name already exists.
-        
+
     Example:
         >>> register_task('build', ['clean', 'compile'])
         True
@@ -374,7 +364,7 @@ What you expected to happen.
 What actually happened.
 
 **Environment**
-- Bolt version: 
+- Bolt version:
 - Python version:
 - OS:
 
@@ -402,7 +392,7 @@ Documentation is as important as code. Please update documentation when:
 
 ### Documentation Location
 
-- **User documentation**: `docs/source/`
+- **User documentation**: `docs/`
 - **API documentation**: Docstrings in source code
 - **README**: High-level overview and quick start
 - **CONTRIBUTING**: This file
@@ -410,16 +400,16 @@ Documentation is as important as code. Please update documentation when:
 ### Building Documentation Locally
 
 ```bash
-uv run sphinx-build -M html docs/source docs/build
+uv run mkdocs serve
 ```
 
-View the built documentation at `docs/build/html/index.html`.
+View the built documentation at `http://localhost:8000`.
 
 ## Community
 
 ### Getting Help
 
-- **Documentation**: https://bolt-task-automation.readthedocs.io
+- **Documentation**: https://bolt-task-automation.readthedocs.io/en/latest/
 - **GitHub Issues**: For bug reports and feature requests
 - **Discussions**: For questions and general discussion
 

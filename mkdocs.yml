@@ -9,6 +9,7 @@ copyright: "2016, Abantos"
 docs_dir: docs
 watch:
   - README.md
+  - CONTRIBUTING.md
 
 theme:
   name: material
@@ -19,6 +20,11 @@ theme:
 markdown_extensions:
   - pymdownx.snippets:
       base_path: .
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
 
 plugins:
   - search
@@ -33,10 +39,8 @@ plugins:
 nav:
   - Home: index.md
   - Using Bolt:
-    - Overview: using_bolt.md
     - Getting Started: using/getting_started.md
     - Dissecting the Boltfile: using/disecting_boltfile.md
     - Provided Tasks: using/provided_tasks.md
     - Custom Tasks: using/custom_tasks.md
   - Contributing: contribute.md
-  - TODO: todo_list.md
