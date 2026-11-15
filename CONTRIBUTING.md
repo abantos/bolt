@@ -16,6 +16,7 @@ Thank you for your interest in contributing to Bolt! We welcome contributions fr
 - [Reporting Bugs](#reporting-bugs)
 - [Suggesting Enhancements](#suggesting-enhancements)
 - [Documentation](#documentation)
+- [Releasing](#releasing)
 - [Community](#community)
 
 ## Code of Conduct
@@ -404,6 +405,30 @@ uv run mkdocs serve
 ```
 
 View the built documentation at `http://localhost:8000`.
+
+## Releasing
+
+Maintainers publish releases to PyPI (project `bolt-ta`) through `.github/workflows/release.yml`:
+
+1. Bump the version in `pyproject.toml` and merge to `master`.
+2. Create and publish a GitHub release for the new version.
+3. The workflow builds the wheel and sdist with `uv build`, validates them with `twine check`, and publishes them using [PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/) (OIDC). No API token is used.
+4. PyPI Publish Attestations ([PEP 740](https://peps.python.org/pep-0740/)) are generated automatically for each distribution.
+
+The PyPI project must have a Trusted Publisher configured for owner `abantos`, repository `bolt`, and workflow `release.yml`, with the environment field left blank.
+
+### Verifying provenance
+
+On PyPI, open the project's **Security** tab and confirm the attestation names this repository and workflow for both the wheel and the sdist. To verify from the command line:
+
+```bash
+python -m pip install pypi-attestations
+pypi-attestations verify pypi \
+  --repository https://github.com/abantos/bolt \
+  https://files.pythonhosted.org/path/to/distribution
+```
+
+Repeat for the wheel and the source distribution.
 
 ## Community
 
