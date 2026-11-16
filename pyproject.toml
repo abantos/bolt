@@ -1,6 +1,6 @@
 [project]
 name = "bolt-ta"
-version = "0.4.1"
+version = "0.4.2"
 description = "A simple task runner written in Python"
 readme = "README.md"
 authors = [{ name = "Abantos", email = "oss.abantos@outlook.com" }]
